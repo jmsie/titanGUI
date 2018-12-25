@@ -1,4 +1,4 @@
-% load static %}  
+{% load static %}  
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if !IE]><!-->
@@ -21,6 +21,8 @@
 	<link href="../statics/assets/css/default/style-responsive.min.css" rel="stylesheet" />
 	<link href="../statics/assets/css/default/theme/default.css" rel="stylesheet" />
 	<!-- ================== END BASE CSS STYLE ================== -->
+  {% block css %}
+  {% endblock %}
 	
 	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="../statics/assets/plugins/pace/pace.min.js"></script>
