@@ -89,6 +89,14 @@
 										<!-- end form-group row -->
 										<!-- begin form-group row -->
 										<div class="form-group row m-b-10">
+											<label class="col-md-3 text-md-right col-form-label">Name</label>
+											<div class="col-md-6">
+												<input type="text" name="firstname" placeholder="" class="form-control" />
+											</div>
+										</div>
+										<!-- end form-group row -->
+										<!-- begin form-group row -->
+										<div class="form-group row m-b-10">
 											<label class="col-md-3 text-md-right col-form-label">Min moving point</label>
 											<div class="col-md-6">
 												<input type="text" name="firstname" placeholder="1" class="form-control" />
@@ -108,6 +116,29 @@
 											<label class="col-md-3 text-md-right col-form-label">Big point value</label>
 											<div class="col-md-6">
 												<input type="text" name="ic" placeholder="12" class="form-control" />
+											</div>
+										</div>
+										<!-- end form-group row -->
+										<!-- begin form-group row -->
+										<div class="form-group row m-b-10">
+											<label class="col-md-3 text-md-right col-form-label">Instrument resoluation</label>
+											<div class="col-md-6">
+                        <select class="form-control" name="year">
+                          <option>Min</option>
+                          <option>Day</option>
+                        </select>
+											</div>
+										</div>
+										<!-- end form-group row -->
+										<!-- begin form-group row -->
+										<div class="form-group row m-b-10">
+											<label class="col-md-3 text-md-right col-form-label">Date format</label>
+											<div class="col-md-6">
+                        <select class="form-control" name="year">
+                          <option value="big">%Y/%m/%d</option>
+                          <option value="little">%d/%m/%Y</option>
+                          <option value="middle">%m/%d/%Y</option>
+                        </select>
 											</div>
 										</div>
 										<!-- end form-group row -->
@@ -196,7 +227,9 @@
 										<div class="form-group row m-b-10">
 											<label class="col-md-3 text-md-right col-form-label">Settings</label>
 											<div class="col-md-6">
-												<input type="email" name="email" placeholder="XAU.yml" class="form-control" />
+                        <select class="form-control">
+                          <option>XAU.yml</option>
+                        </select>
 											</div>
 										</div>
 										<!-- end form-group row -->
@@ -204,7 +237,9 @@
 										<div class="form-group row m-b-10">
 											<label class="col-md-3 text-md-right col-form-label">seqdef</label>
 											<div class="col-md-6">
-												<input type="email" name="email" placeholder="exs" class="form-control" />
+                        <select class="form-control">
+                          <option value="exs">Entry 1 Exit 1 Stop 1</option>
+                        </select>
 											</div>
 										</div>
 										<!-- end form-group row -->
@@ -212,7 +247,9 @@
 										<div class="form-group row m-b-10">
 											<label class="col-md-3 text-md-right col-form-label">signal_def</label>
 											<div class="col-md-6">
-												<input type="email" name="email" placeholder="signal_def.default.yml" class="form-control" />
+                        <select class="form-control" >
+                          <option>signal_def.default.yml</option>
+                        </select>
 											</div>
 										</div>
 										<!-- end form-group row -->
@@ -239,16 +276,28 @@
 
 											<div class="checkbox checkbox-css">
 											<div class="checkbox checkbox-css is-valid">
-												<input type="checkbox" id="cssCheckbox3" value="" />
-												<label for="cssCheckbox3">5 min</label>
+												<input type="checkbox" id="5m" value="" />
+												<label for="5m">5 min</label>
 											</div>
 											<div class="checkbox checkbox-css is-valid">
-												<input type="checkbox" id="cssCheckbox3" value="" />
-												<label for="cssCheckbox3">10 min</label>
+												<input type="checkbox" id="10m" value="" />
+												<label for="10m">10 min</label>
 											</div>
 											<div class="checkbox checkbox-css is-valid">
-												<input type="checkbox" id="cssCheckbox3" value="" />
-												<label for="cssCheckbox3">30 min</label>
+												<input type="checkbox" id="30m" value="" />
+												<label for="30m">30 min</label>
+											</div>
+											<div class="checkbox checkbox-css is-valid">
+												<input type="checkbox" id="45m" value="" />
+												<label for="45m">45 min</label>
+											</div>
+											<div class="checkbox checkbox-css is-valid">
+												<input type="checkbox" id="60m" value="" />
+												<label for="60m">60 min</label>
+											</div>
+											<div class="checkbox checkbox-css is-valid">
+												<input type="checkbox" id="1d" value="" />
+												<label for="1d">1 Day</label>
 											</div>
 
 										</div>
