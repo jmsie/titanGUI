@@ -6,5 +6,7 @@ from . import views
 urlpatterns = [ 
   path("dash_board", views.dash_board, name="dash_board"),
   path("new_project", views.new_project, name="new_project"),
+  path("manage_project", views.manage_projects, name="manage_project"),
+  path("add_instrument", views.add_instrument, name="add_instrument"),
 ]
 

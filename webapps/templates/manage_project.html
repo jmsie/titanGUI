@@ -1,0 +1,63 @@
+    {% extends 'base.html' %}
+    {% block css %}
+    <link href="../statics/css/dash_board.css" rel="stylesheet" />    
+    {% endblock %}
+    {% block content %}
+    <div id="content" class="content">
+      <!-- begin page-header -->
+      <h1 class="page-header">Page Header <small>header small text goes here...</small></h1>
+      <!-- end page-header -->
+      <!-- begin row -->
+      <div class="row">
+
+
+        <!-- begin col-12 -->
+        <div class="col-lg-12">
+          <!-- begin panel -->
+          <div class="panel panel-inverse" data-sortable-id="ui-widget-1">
+            <div class="panel-heading">
+              <div class="panel-heading-btn">
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+              </div>
+              <h4 class="panel-title">XAU_2010-2017</h4>
+            </div>
+            <div class="panel-body">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Population</th>
+                    <th># simulations</th>
+                    <th>Bad</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>thread 1</td>
+                    <td>41341</td>
+                    <td>4</td>
+                    <td>Stop</td>
+                    <td>
+                      <i class="fas fa-play fa-2x"></i>
+                      <i class="fas fa-pause fa-2x"></i>
+                      <i class="fas fa-stop fa-2x"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="hljs-wrapper">
+            </div>
+          </div>
+          <!-- end panel -->
+        </div>
+        <!-- end col-12 -->
+
+      </div>
+      <!-- end row -->
+    </div>
+    {% endblock content %}

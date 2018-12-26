@@ -7,3 +7,9 @@ def dash_board(request):
 
 def new_project(request):
   return render(request, 'new_project.html')
+
+def manage_projects(request):
+  return render(request, 'manage_project.html')
+
+def add_instrument(request):
+  return render(request, 'add_instrument.html')

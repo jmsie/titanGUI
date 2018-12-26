@@ -114,6 +114,29 @@
 							<span>New Project</span>
 						</a>
 					</li>
+					<li class="active">
+						<a href="{% url 'manage_project' %}">
+							<i class="fa fa-gamepad"></i>
+							<span>Manage Project</span>
+						</a>
+					</li>
+					<li class="has-sub">
+						<a href="javascript:;">
+							<b class="caret"></b>
+							<i class="fa fa-database"></i>
+							<span>Instrunments</span>
+						</a>
+						<ul class="sub-menu">
+							<li><a href="{% url 'add_instrument' %}">Add Instrument</a></li>
+							<li><a href="{% url 'manage_instrument' %}">Manage Instrument</a></li>
+						</ul>
+					</li>
+					<li class="active">
+						<a href="{% url 'new_project' %}">
+							<i class="fa fa-newspaper"></i>
+							<span>Simulations Reports</span>
+						</a>
+					</li>
 					<!-- begin sidebar minify button -->
 					<li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
 					<!-- end sidebar minify button -->

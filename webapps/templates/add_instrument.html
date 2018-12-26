@@ -1,0 +1,103 @@
+    {% extends 'base.html' %}
+    {% block css %}
+    {% endblock %}
+    {% block content %}
+    <div id="content" class="content">
+      <!-- begin page-header -->
+      <h1 class="page-header">Page Header <small>header small text goes here...</small></h1>
+      <!-- end page-header -->
+      <!-- begin row -->
+      <div class="row">
+        <!-- begin col-8 -->
+        <div class="col-lg-8">
+          <!-- begin panel -->
+          <div class="panel panel-inverse" data-sortable-id="ui-widget-1">
+            <div class="panel-heading">
+              <div class="panel-heading-btn">
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+              </div>
+              <h4 class="panel-title">CL_2005_2012</h4>
+            </div>
+            <div class="panel-body">
+            
+							<fieldset>
+								<!-- begin row -->
+								<div class="row">
+									<!-- begin col-12 -->
+									<div class="col-md-12 offset-md-2">
+										<!-- end form-group row -->
+										<legend class="no-border f-w-700 p-b-0 m-t-0 m-b-20 f-s-16 text-inverse">Or upload a new instrument</legend>
+										<!-- begin form-group row -->
+										<div class="form-group row m-b-10">
+											<label class="col-md-3 text-md-right col-form-label">History data</label>
+											<div class="col-md-6">
+												<input type="file" name="firstname" placeholder="" class="form-control" />
+											</div>
+										</div>
+										<!-- end form-group row -->
+										<!-- begin form-group row -->
+										<div class="form-group row m-b-10">
+											<label class="col-md-3 text-md-right col-form-label">Name</label>
+											<div class="col-md-6">
+												<input type="text" name="firstname" placeholder="1" class="form-control" />
+											</div>
+										</div>
+										<!-- end form-group row -->
+										<!-- begin form-group row -->
+										<div class="form-group row m-b-10">
+											<label class="col-md-3 text-md-right col-form-label">Min moving point</label>
+											<div class="col-md-6">
+												<input type="text" name="firstname" placeholder="1" class="form-control" />
+											</div>
+										</div>
+										<!-- end form-group row -->
+										<!-- begin form-group row -->
+										<div class="form-group row m-b-10">
+											<label class="col-md-3 text-md-right col-form-label">Price scale</label>
+											<div class="col-md-6">
+												<input type="text" name="lastname" placeholder="0.01" class="form-control" />
+											</div>
+										</div>
+										<!-- end form-group row -->
+										<!-- begin form-group row -->
+										<div class="form-group row m-b-10">
+											<label class="col-md-3 text-md-right col-form-label">Big point value</label>
+											<div class="col-md-6">
+												<input type="text" name="ic" placeholder="12" class="form-control" />
+											</div>
+										</div>
+										<a href="#" class="btn btn-primary">Submit</a>
+										<!-- end form-group row -->
+									</div>
+									<!-- end col-12 -->
+								</div>
+								<!-- end row -->
+							</fieldset>
+							<!-- end fieldset -->
+						</div>
+
+            </div>
+            <div class="hljs-wrapper">
+            </div>
+          </div>
+          <!-- end panel -->
+        </div>
+        <!-- end col-8 -->
+
+
+
+      </div>
+      <!-- end row -->
+    </div>
+    {% endblock content %}
+
+
+{% block js %}
+  <script>
+    $(document).ready(function() {
+    });
+  </script>
+{% endblock %}
