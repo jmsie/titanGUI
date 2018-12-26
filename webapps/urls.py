@@ -9,5 +9,6 @@ urlpatterns = [
   path("manage_project", views.manage_projects, name="manage_project"),
   path("add_instrument", views.add_instrument, name="add_instrument"),
   path("manage_instrument", views.manage_instrument, name="manage_instrument"),
+  path("simulation_result", views.simulation_result, name="simulation_result"),
 ]
 

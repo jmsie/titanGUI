@@ -16,3 +16,6 @@ def add_instrument(request):
 
 def manage_instrument(request):
   return render(request, 'manage_instrument.html')
+
+def simulation_result(request):
+  return render(request, 'simulation_result.html')
