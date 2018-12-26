@@ -5,11 +5,11 @@ from django.shortcuts import render
 def dash_board(request):
   return render(request, 'dash_board.html')
 
-def new_project(request):
-  return render(request, 'new_project.html')
+def new_population(request):
+  return render(request, 'new_population.html')
 
-def manage_projects(request):
-  return render(request, 'manage_project.html')
+def manage_populations(request):
+  return render(request, 'manage_population.html')
 
 def add_instrument(request):
   return render(request, 'add_instrument.html')
