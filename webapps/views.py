@@ -13,3 +13,6 @@ def manage_projects(request):
 
 def add_instrument(request):
   return render(request, 'add_instrument.html')
+
+def manage_instrument(request):
+  return render(request, 'manage_instrument.html')
