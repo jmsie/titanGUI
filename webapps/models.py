@@ -1,56 +1,54 @@
 from django.db import models
 
 # This is the history data
-class instrument_files(models.Model):
+class History_data_file(models.Model):
   name = models.CharField(max_length=30)
   path = models.CharField(max_length=200)
 
-# Exchange rule file
-class def_files(models.Model):
+# Exchange rule file for the instrument
+class Instrument_def_file(models.Model):
   name = models.CharField(max_length=30)
   path = models.CharField(max_length=200)
 
-# Titan settings
-class setting_files(models.Model):
+# Titan simulation settings
+class Simulation_setting_file(models.Model):
   name = models.CharField(max_length=30)
   path = models.CharField(max_length=200)
 
 # Signal settings, defines the argument range of the signals
-class signal_def_files(models.Model):
+class Signal_def_file(models.Model):
   name = models.CharField(max_length=30)
   path = models.CharField(max_length=200)
 
-class seq_defs(models.Model):
+class Seq_def(models.Model):
   name = models.CharField(max_length=30)
 
-class time_scales(models.Model):
+class Time_scale(models.Model):
   name = models.CharField(max_length=30)
 
-class date_formats(models.Model):
+class Date_format(models.Model):
   name = models.CharField(max_length=10)
   format = models.CharField(max_length=30)
 
 # Default resolutions
-class resolution(models.Model):
+class Resolution(models.Model):
   value = models.CharField(max_length=10)
 
-class instruments(models.Model):
+class Instrument(models.Model):
   name = models.CharField(max_length=30)
-  instrument_file = models.ForeignKey(instrument_files, on_delete=models.CASCADE)
-  def_file = models.ForeignKey(def_files, on_delete=models.CASCADE)
-  time_scale = models.CharField(max_length=30)
-  date_format = models.CharField(max_length=30)
+  history_data_file = models.ForeignKey(History_data_file, on_delete=models.CASCADE)
+  instrument_def_file = models.ForeignKey(Instrument_def_file, on_delete=models.CASCADE)
+  time_scale = models.ForeignKey(Time_scale, on_delete=models.CASCADE)
+  date_format = models.ForeignKey(Date_format, on_delete=models.CASCADE)
   min_movement = models.CharField(max_length=30)
   price_scale = models.CharField(max_length=30)
   big_point_value = models.CharField(max_length=30)
 
-class populations(models.Model):
+class Population(models.Model):
   name = models.CharField(max_length=30)
+  instrument = models.ForeignKey(Instrument, on_delete=models.CASCADE)
+  simulation_setting_file = models.ForeignKey(Simulation_setting_file, on_delete=models.CASCADE)
+  signal_def_file = models.ForeignKey(Signal_def_file, on_delete=models.CASCADE)
+  seq_def = models.ForeignKey(Seq_def, on_delete=models.CASCADE)
   start_date = models.CharField(max_length=30)
   end_date = models.CharField(max_length=30)
-  instrument = models.ForeignKey(instruments, on_delete=models.CASCADE)
-  setting_file = models.ForeignKey(setting_files, on_delete=models.CASCADE)
-  seq_def = models.CharField(max_length=30)
-  signal_def = models.ForeignKey(signal_def_files, on_delete=models.CASCADE)
-
-

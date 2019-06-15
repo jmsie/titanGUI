@@ -1,16 +1,16 @@
 from django.contrib import admin
 from webapps.models import *
 
-admin.site.register(instrument_files)
-admin.site.register(def_files)
-admin.site.register(setting_files)
-admin.site.register(signal_def_files)
-admin.site.register(seq_defs)
-admin.site.register(time_scales)
-admin.site.register(date_formats)
-admin.site.register(resolution)
-admin.site.register(instruments)
-admin.site.register(populations)
+admin.site.register(History_data_file)
+admin.site.register(Instrument_def_file)
+admin.site.register(Simulation_setting_file)
+admin.site.register(Signal_def_file)
+admin.site.register(Seq_def)
+admin.site.register(Time_scale)
+admin.site.register(Date_format)
+admin.site.register(Resolution)
+admin.site.register(Instrument)
+admin.site.register(Population)
 
 
 # Register your models here.
