@@ -19,7 +19,7 @@
 					<ul>
 						<li class="col-md-3 col-sm-4 col-6">
 							<a href="#step-1">
-								<span class="number">1</span> 
+								<span class="number">1</span>
 								<span class="info text-ellipsis">
 									Set Instrument
 									<small class="text-ellipsis">Set history price data</small>
@@ -70,13 +70,15 @@
 										<div class="form-group row m-b-10">
 											<label class="col-md-3 text-md-right col-form-label">Instruments</label>
 											<div class="col-md-6">
-														<select class="form-control" name="year">
-															<option>--Instrument--</option>
-															<option>CL_2011_2019</option>
-															<option>MCG_2008_2017</option>
-														</select>
+												<select class="form-control" id="instrument">
+													<option></option>
+                                                   {% for instrument in instruments %}
+                                                       <option>{{ instrument.name }}</option>
+                                                   {% endfor %}
+												</select>
 											</div>
 										</div>
+                                        <div style="display:none;">
 										<!-- end form-group row -->
 										<legend class="no-border f-w-700 p-b-0 m-t-0 m-b-20 f-s-16 text-inverse">Or upload a new instrument</legend>
 										<!-- begin form-group row -->
@@ -123,10 +125,10 @@
 										<div class="form-group row m-b-10">
 											<label class="col-md-3 text-md-right col-form-label">Instrument resoluation</label>
 											<div class="col-md-6">
-                        <select class="form-control" name="year">
-                          <option>Min</option>
-                          <option>Day</option>
-                        </select>
+                                            <select class="form-control" name="year">
+                                              <option>Min</option>
+                                              <option>Day</option>
+                                            </select>
 											</div>
 										</div>
 										<!-- end form-group row -->
@@ -134,14 +136,15 @@
 										<div class="form-group row m-b-10">
 											<label class="col-md-3 text-md-right col-form-label">Date format</label>
 											<div class="col-md-6">
-                        <select class="form-control" name="year">
-                          <option value="big">%Y/%m/%d</option>
-                          <option value="little">%d/%m/%Y</option>
-                          <option value="middle">%m/%d/%Y</option>
-                        </select>
+                                            <select class="form-control" name="year">
+                                              <option value="big">%Y/%m/%d</option>
+                                              <option value="little">%d/%m/%Y</option>
+                                              <option value="middle">%m/%d/%Y</option>
+                                            </select>
 											</div>
 										</div>
 										<!-- end form-group row -->
+                                        </div><!-- end of display none -->
 									</div>
 									<!-- end col-8 -->
 								</div>
@@ -163,7 +166,7 @@
 										<div class="form-group row m-b-10">
 											<label class="col-md-3 text-md-right col-form-label">Population Name</label>
 											<div class="col-md-6">
-												<input type="email" name="email" placeholder="XAU_10_17" class="form-control" />
+												<input type="text" id="population-name" placeholder="XAU_10_17" class="form-control" />
 											</div>
 										</div>
 										<!-- end form-group row -->
@@ -173,63 +176,75 @@
 											<div class="col-md-6">
 												<div class="row row-space-6">
 													<div class="col-4">
-														<select class="form-control" name="year">
+														<select class="form-control" id="start-year">
 															<option>-- Year --</option>
+                                                            {% for year in years %}
+                                                                <option>{{ year }}</option>
+                                                            {% endfor %}
 														</select>
 													</div>
 													<div class="col-4">
-														<select class="form-control" name="month">
+														<select class="form-control" id="start-month">
 															<option>-- Month --</option>
+                                                            {% for month in months %}
+                                                                <option>{{ month }}</option>
+                                                            {% endfor %}
 														</select>
 													</div>
 													<div class="col-4">
-														<select class="form-control" name="day">
+														<select class="form-control" id="start-day">
 															<option>-- Day --</option>
+                                                            {% for day in days %}
+                                                                <option>{{ day }}</option>
+                                                            {% endfor %}
 														</select>
 													</div>
 												</div>
 											</div>
 										</div>
 										<!-- end form-group row -->
+                                        <!-- begin form-group row -->
+                                        <div class="form-group row m-b-10">
+                                            <label class="col-md-3 text-md-right col-form-label">Date of Start</label>
+                                            <div class="col-md-6">
+                                                <div class="row row-space-6">
+                                                    <div class="col-4">
+                                                        <select class="form-control" id="end-year">
+                                                            <option>-- Year --</option>
+                                                            {% for year in years %}
+                                                                <option>{{ year }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <select class="form-control" id="end-month">
+                                                            <option>-- Month --</option>
+                                                            {% for month in months %}
+                                                                <option>{{ month }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <select class="form-control" id="end-day">
+                                                            <option>-- Day --</option>
+                                                            {% for day in days %}
+                                                                <option>{{ day }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end form-group row -->
 										<!-- begin form-group row -->
 										<div class="form-group row m-b-10">
-											<label class="col-md-3 text-md-right col-form-label">Date of End</label>
+											<label class="col-md-3 text-md-right col-form-label">Simulation settings</label>
 											<div class="col-md-6">
-												<div class="row row-space-6">
-													<div class="col-4">
-														<select class="form-control" name="year">
-															<option>-- Year --</option>
-														</select>
-													</div>
-													<div class="col-4">
-														<select class="form-control" name="month">
-															<option>-- Month --</option>
-														</select>
-													</div>
-													<div class="col-4">
-														<select class="form-control" name="day">
-															<option>-- Day --</option>
-														</select>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- end form-group row -->
-										<!-- begin form-group row -->
-										<div class="form-group row m-b-10">
-											<label class="col-md-3 text-md-right col-form-label">Instrument</label>
-											<div class="col-md-6">
-												<input type="number" name="phone" placeholder="XAU" class="form-control" />
-											</div>
-										</div>
-										<!-- end form-group row -->
-										<!-- begin form-group row -->
-										<div class="form-group row m-b-10">
-											<label class="col-md-3 text-md-right col-form-label">Settings</label>
-											<div class="col-md-6">
-                        <select class="form-control">
-                          <option>XAU.yml</option>
-                        </select>
+                                                <select class="form-control" id="simulation-setting-file">
+                                                    {% for simulation_setting_file in simulation_setting_files %}
+                                                      <option>{{ simulation_setting_file.name }}</option>
+                                                    {% endfor %}
+                                                </select>
 											</div>
 										</div>
 										<!-- end form-group row -->
@@ -237,9 +252,11 @@
 										<div class="form-group row m-b-10">
 											<label class="col-md-3 text-md-right col-form-label">seqdef</label>
 											<div class="col-md-6">
-                        <select class="form-control">
-                          <option value="exs">Entry 1 Exit 1 Stop 1</option>
-                        </select>
+                                                <select class="form-control" id="seq-def">
+                                                    {% for seq_def in seq_defs %}
+                                                        <option value="{{seq_def.name}}">{{ seq_def.description }}</option>
+                                                    {% endfor %}
+                                                </select>
 											</div>
 										</div>
 										<!-- end form-group row -->
@@ -247,9 +264,11 @@
 										<div class="form-group row m-b-10">
 											<label class="col-md-3 text-md-right col-form-label">signal_def</label>
 											<div class="col-md-6">
-                        <select class="form-control" >
-                          <option>signal_def.default.yml</option>
-                        </select>
+                                                <select class="form-control" id="signal-def-file">
+                                                    {% for signal_def_file in signal_def_files %}
+                                                        <option>{{ signal_def_file.name }}</option>
+                                                    {% endfor %}
+                                                </select>
 											</div>
 										</div>
 										<!-- end form-group row -->
@@ -273,32 +292,12 @@
 										<!-- begin form-group row -->
 										<div class="form-group row m-b-10">
 											<label class="col-md-3 text-md-right col-form-label">Resolution</label>
-
-											<div class="checkbox checkbox-css">
+                                            {% for resolution in resolutions %}
 											<div class="checkbox checkbox-css is-valid">
-												<input type="checkbox" id="5m" value="" />
-												<label for="5m">5 min</label>
+												<input type="checkbox" class="resolution" id="{{ resolution.value }}" value="{{ resolution.value }}" />
+												<label for="{{ resolution.value }}">{{ resolution.value }}</label>
 											</div>
-											<div class="checkbox checkbox-css is-valid">
-												<input type="checkbox" id="10m" value="" />
-												<label for="10m">10 min</label>
-											</div>
-											<div class="checkbox checkbox-css is-valid">
-												<input type="checkbox" id="30m" value="" />
-												<label for="30m">30 min</label>
-											</div>
-											<div class="checkbox checkbox-css is-valid">
-												<input type="checkbox" id="45m" value="" />
-												<label for="45m">45 min</label>
-											</div>
-											<div class="checkbox checkbox-css is-valid">
-												<input type="checkbox" id="60m" value="" />
-												<label for="60m">60 min</label>
-											</div>
-											<div class="checkbox checkbox-css is-valid">
-												<input type="checkbox" id="1d" value="" />
-												<label for="1d">1 Day</label>
-											</div>
+                                            {% endfor %}
 
 										</div>
 										<!-- end form-group row -->
@@ -315,7 +314,7 @@
 							<div class="jumbotron m-b-0 text-center">
 								<h2 class="text-inverse">You are ready to go</h2>
 								<p class="m-b-30 f-s-16">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat commodo porttitor. <br />Vivamus eleifend, arcu in tincidunt semper, lorem odio molestie lacus, sed malesuada est lacus ac ligula. Aliquam bibendum felis id purus ullamcorper, quis luctus leo sollicitudin. </p>
-								<p><a href="javascript:;" class="btn btn-primary btn-lg">Start mining</a></p>
+								<p><a href="javascript:void();" class="btn btn-primary btn-lg" id="start">Start mining</a></p>
 							</div>
 						</div>
 						<!-- end step-4 -->
@@ -455,6 +454,34 @@
 		$(document).ready(function() {
 			FormWizard.init();
 		});
+
+		$("#start").click(function() {
+            start_year = $("#start-year option:selected").text()
+            start_month = $("#start-month option:selected").text()
+            start_day = $("#start-day option:selected").text()
+
+            end_year = $("#end-year option:selected").text()
+            end_month = $("#end-month option:selected").text()
+            end_day = $("#end-day option:selected").text()
+
+            resolutions = []
+            checkboxes = $("input:checked")
+            for (var i = 0; i < checkboxes.length; i++) {
+                resolutions.push(checkboxes[i].value)
+            }
+
+            data = {
+                "instrument": $("#instrument option:selected").text(),
+                "population_name": $("#population-name").val(),
+                "start_date": start_year + "_" + start_month + "_" + start_day,
+                "end_date": end_year + "_" + end_month + "_" + end_day,
+                "simulation_setting_file": $("#simulation-setting-file option:selected").text(),
+                "seq_def": $("#seq-def option:selected").val(),
+                "signal_def_file": $("#signal-def-file option:selected").text(),
+                "resolutions": resolutions,
+            }
+            console.log(data);
+        })
 	</script>
 {% endblock %}
 
