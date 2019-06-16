@@ -10,5 +10,7 @@ urlpatterns = [
   path("add_instrument", views.add_instrument, name="add_instrument"),
   path("manage_instrument", views.manage_instrument, name="manage_instrument"),
   path("simulation_result", views.simulation_result, name="simulation_result"),
+
+  path('api/create_population', views.create_population, name="create_population"),
 ]
 
