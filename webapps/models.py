@@ -22,6 +22,7 @@ class Signal_def_file(models.Model):
 
 class Seq_def(models.Model):
   name = models.CharField(max_length=30)
+  description = models.CharField(max_length=30)
 
 class Time_scale(models.Model):
   name = models.CharField(max_length=30)
