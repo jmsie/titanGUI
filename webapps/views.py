@@ -68,16 +68,7 @@ def create_population(request):
   if len(errors) != 0:
     return JsonResponse({"errors": errors})
 
-  # Save query to db
-  population_obj = Population()
-  population_obj.name = name
-  population_obj.instrument = Instrument.objects.get(name=instrument)
-  population_obj.seq_def = Seq_def.objects.get(name=seq_def)
-  population_obj.signal_def_file = Signal_def_file.objects.get(name=signal_def_file)
-  population_obj.simulation_setting_file = Simulation_setting_file.objects.get(name=simulation_setting_file)
-  population_obj.start_date = range.split('-')[0]
-  population_obj.end_date = range.split('-')[1]
-  population_obj.save()
+
 
   # Build query
   query_template = 'create_population -settings #simulation_setting_file -signal_def #signal_def_file -range #range -instrument #instrument -seqdef #seq_def #name'
@@ -96,6 +87,21 @@ def create_population(request):
   context = {
     "query": query_template,
   }
+
+  # Save query to db
+  population_obj = Population()
+  population_obj.name = name
+  population_obj.instrument = Instrument.objects.get(name=instrument)
+  population_obj.seq_def = Seq_def.objects.get(name=seq_def)
+  population_obj.signal_def_file = Signal_def_file.objects.get(name=signal_def_file)
+  population_obj.simulation_setting_file = Simulation_setting_file.objects.get(name=simulation_setting_file)
+  population_obj.start_date = range.split('-')[0]
+  population_obj.end_date = range.split('-')[1]
+  population_obj.query = query_template
+  population_obj.save()
+
+
+
   return JsonResponse(context)
 
 
