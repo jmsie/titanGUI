@@ -44,6 +44,8 @@ class Instrument(models.Model):
   min_movement = models.CharField(max_length=30)
   price_scale = models.CharField(max_length=30)
   big_point_value = models.CharField(max_length=30)
+  query = models.CharField(max_length=200)
+  created_at = models.DateTimeField(auto_now_add=True)
 
 class Population(models.Model):
   name = models.CharField(max_length=30)
@@ -53,3 +55,5 @@ class Population(models.Model):
   seq_def = models.ForeignKey(Seq_def, on_delete=models.CASCADE)
   start_date = models.CharField(max_length=30)
   end_date = models.CharField(max_length=30)
+  query = models.CharField(max_length=200)
+  created_at = models.DateTimeField(auto_now_add=True)
