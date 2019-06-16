@@ -473,14 +473,34 @@
             data = {
                 "instrument": $("#instrument option:selected").text(),
                 "population_name": $("#population-name").val(),
-                "start_date": start_year + "_" + start_month + "_" + start_day,
-                "end_date": end_year + "_" + end_month + "_" + end_day,
+                "start_year": start_year,
+                "start_month": start_month,
+                "start_day": start_day,
+                "end_year": end_year,
+                "end_month": end_month,
+                "end_day": end_day,
                 "simulation_setting_file": $("#simulation-setting-file option:selected").text(),
                 "seq_def": $("#seq-def option:selected").val(),
                 "signal_def_file": $("#signal-def-file option:selected").text(),
                 "resolutions": resolutions,
+                "csrfmiddlewaretoken": "{{ csrf_token }}",
             }
             console.log(data);
+
+            $.ajax({
+                url: "{% url 'create_population' %}",
+                type: 'POST',
+                data: data,
+                dataType: 'json',
+                success: function(data){
+                    alert(JSON.stringify(data));
+                },
+                error: function(){
+                    alert('ajax error');
+                }
+
+
+            })
         })
 	</script>
 {% endblock %}

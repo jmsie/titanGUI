@@ -20,7 +20,6 @@ from django.conf.urls import include, url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('api/', include('api.urls')),
     path('', include('webapps.urls')),
     path('titan/', include('webapps.urls')),
 
