@@ -11,6 +11,6 @@ urlpatterns = [
   path("manage_instrument", views.manage_instrument, name="manage_instrument"),
   path("simulation_result", views.simulation_result, name="simulation_result"),
 
-  path('api/create_population', views.create_population, name="create_population"),
+  path('api/create_population_and_add_resolutions', views.create_population_and_add_resolutions, name="create_population_and_add_resolutions"),
 ]
 

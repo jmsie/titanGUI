@@ -464,10 +464,10 @@
             end_month = $("#end-month option:selected").text()
             end_day = $("#end-day option:selected").text()
 
-            resolutions = []
+            resolutions = ""
             checkboxes = $("input:checked")
             for (var i = 0; i < checkboxes.length; i++) {
-                resolutions.push(checkboxes[i].value)
+                resolutions += checkboxes[i].value + ","
             }
 
             data = {
@@ -488,7 +488,7 @@
             console.log(data);
 
             $.ajax({
-                url: "{% url 'create_population' %}",
+                url: "{% url 'create_population_and_add_resolutions' %}",
                 type: 'POST',
                 data: data,
                 dataType: 'json',

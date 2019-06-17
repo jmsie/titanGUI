@@ -55,5 +55,6 @@ class Population(models.Model):
   seq_def = models.ForeignKey(Seq_def, on_delete=models.CASCADE)
   start_date = models.CharField(max_length=30)
   end_date = models.CharField(max_length=30)
+  resolutions = models.CharField(max_length=60)
   query = models.CharField(max_length=200)
   created_at = models.DateTimeField(auto_now_add=True)
