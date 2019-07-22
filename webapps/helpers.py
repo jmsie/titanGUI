@@ -1,5 +1,6 @@
 import datetime
-
+from django.conf import settings
+import json
 
 def build_time_range(request):
   start_year = request.POST.get('start_year')
@@ -49,3 +50,39 @@ def is_int(str):
 
 def get_time_stamp(str):
   return int(datetime.datetime.strptime(str, '%Y-%m-%d').strftime("%s"))
+
+
+# This function loads the TitanSocketUi to handle the connection
+# between GUI and Titan server.
+# @input: string
+# @output: string
+def send_command(command):
+  import sys
+  sys.path.append(settings.TITAN)
+  import logging
+  from titan.ui_titan import TitanSocketUi
+  from cmdshell.log import SocketHandler
+  import socket
+  # Communicate with Titan server
+  socket_handler = SocketHandler()
+  with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+    socket_handler.set_socket(sock)
+    try:
+      sock.connect((settings.TITAN_HOST, settings.TITAN_PORT))
+      TitanSocketUi.send_str(sock, command)
+      for data in socket_handler.receive():
+        recv = data.getMessage()
+        if is_json(recv):
+          return recv
+    except ConnectionRefusedError:
+      print('Cannot connect to the server at {}:{}'.format(
+        settings.TITAN_HOST, settings.TITAN_PORT
+      ))
+
+
+def is_json(string):
+  try:
+    json_object = json.loads(string)
+  except ValueError:
+    return False
+  return True
