@@ -175,8 +175,13 @@
 	<!-- ================== END BASE JS ================== -->
   
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
+    <script>
+    $.ajaxSetup({
+        data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+    });
+    </script>
 	{% block js %}
-  {% endblock js %}
+    {% endblock js %}
 	<!-- ================== END PAGE LEVEL JS ================== -->
 
 	<script>
