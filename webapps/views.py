@@ -8,6 +8,23 @@ from webapps.helpers import *
 def dash_board(request):
   return render(request, 'dash_board.html')
 
+def console(request):
+  return render(request, 'console.html')
+
+def console_send_command(request):
+  command = request.POST.get("command")
+  response = send_command(command)
+  status = "OK"
+  if response == None:
+    response = "Titan not connected"
+    status = "FAIL"
+
+  context = {
+    "status": status,
+    "message": response,
+  }
+  return JsonResponse(context)
+
 def new_population(request):
   instruments = Instrument.objects.all()
   simulation_setting_files = Simulation_setting_file.objects.all()
