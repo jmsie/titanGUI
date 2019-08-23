@@ -129,6 +129,6 @@ STATICFILES_DIRS = (
 MEDIA_ROOT = os.path.join(BASE_DIR, '\static').replace('\\', '/') 
 MEDIA_URL = '/img/'
 
-TITAN = '/Users/jeff/Dropbox/work/DORF/Titan'
-TITAN_HOST = 'localhost'
+TITAN = '/Titan'
+TITAN_HOST = 'titan_server'
 TITAN_PORT = 61200
