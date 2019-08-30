@@ -36,17 +36,19 @@
                   </tr>
                 </thead>
                 <tbody>
+                {% for population in populations %}
                   <tr>
-                    <td>thread 1</td>
-                    <td>41341</td>
-                    <td>4</td>
+                    <td>{{population}}</td>
+                    <td>NA</td>
+                    <td>NA</td>
                     <td>Stop</td>
                     <td>
-                      <i class="fas fa-play fa-2x"></i>
+                      <i class="fas fa-play fa-2x" onclick="start_sim('{{ population }}')"></i>
                       <i class="fas fa-pause fa-2x"></i>
                       <i class="fas fa-stop fa-2x"></i>
                     </td>
                   </tr>
+                {% endfor %}
                 </tbody>
               </table>
             </div>
@@ -61,3 +63,13 @@
       <!-- end row -->
     </div>
     {% endblock content %}
+
+
+
+{% block js %}
+    <script>
+       function start_sim(population) {
+           alert("Start " + population)
+       }
+    </script>
+{% endblock %}

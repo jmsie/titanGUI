@@ -79,6 +79,11 @@ def send_command(command):
 
   return recv
 
+# This function defines how to get the json form the titan response
+def get_command_json(string):
+  return json.loads(string[-1])
+
+
 def is_json(string):
   try:
     json_object = json.loads(string)

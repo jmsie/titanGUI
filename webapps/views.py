@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from webapps.models import *
 from webapps.helpers import *
+import json
 
 # Create your views here.
 
@@ -43,7 +44,11 @@ def new_population(request):
   return render(request, 'new_population.html', context)
 
 def manage_populations(request):
-  return render(request, 'manage_population.html')
+  populations = get_command_json(send_command("_gui_container_list_population"))
+  context = {
+    "populations" : populations['list']
+  }
+  return render(request, 'manage_population.html', context)
 
 def add_instrument(request):
   return render(request, 'add_instrument.html')
