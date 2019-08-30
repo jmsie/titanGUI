@@ -65,20 +65,19 @@ def send_command(command):
   import socket
   # Communicate with Titan server
   socket_handler = SocketHandler()
+  recv = []
   with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
     socket_handler.set_socket(sock)
     try:
       sock.connect((settings.TITAN_HOST, settings.TITAN_PORT))
       TitanSocketUi.send_str(sock, command)
       for data in socket_handler.receive():
-        recv = data.getMessage()
-        if is_json(recv):
-          return recv
+        recv.append(data.getMessage())
     except ConnectionRefusedError:
-      print('Cannot connect to the server at {}:{}'.format(
-        settings.TITAN_HOST, settings.TITAN_PORT
-      ))
+      recv.append("Cannot connect to the server at {}:{}".format(
+        settings.TITAN_HOST, settings.TITAN_PORT))
 
+  return recv
 
 def is_json(string):
   try:

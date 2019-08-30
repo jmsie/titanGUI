@@ -15,13 +15,10 @@ def console_send_command(request):
   command = request.POST.get("command")
   response = send_command(command)
   status = "OK"
-  if response == None:
-    response = "Titan not connected"
-    status = "FAIL"
 
   context = {
     "status": status,
-    "message": response,
+    "message": response[-1],
   }
   return JsonResponse(context)
 
