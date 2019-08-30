@@ -129,6 +129,9 @@ def create_population_and_add_resolutions(request):
     "add_resolution": add_resolution,
   }
 
+  send_command(create_population)
+  send_command(add_resolution)
+
   return JsonResponse(context)
 
 
