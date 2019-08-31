@@ -5,12 +5,12 @@
     {% block content %}
     <div id="content" class="content">
       <!-- begin page-header -->
-      <h1 class="page-header">Page Header <small>header small text goes here...</small></h1>
+      <h1 class="page-header">Manage Populations <small>{{ msg }}</small></h1>
       <!-- end page-header -->
       <!-- begin row -->
       <div class="row">
-        <!-- begin col-12 -->
-        <div class="col-lg-12">
+        <!-- begin col-6 -->
+        <div class="col-lg-6">
           <!-- begin panel -->
           <div class="panel panel-inverse" data-sortable-id="ui-widget-1">
             <div class="panel-heading">
@@ -20,32 +20,26 @@
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
               </div>
-              <h4 class="panel-title">XAU_2010-2017</h4>
+              <h4 class="panel-title">Populations</h4>
             </div>
             <div class="panel-body">
               <table class="table table-striped">
                 <thead>
                   <tr>
                     <th>Population</th>
-                    <th># simulations</th>
-                    <th>Bad</th>
-                    <th>Status</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                {{ msg }}
                 {% for population in populations %}
                   <tr>
                     <td>{{population}}</td>
-                    <td>NA</td>
-                    <td>NA</td>
                     <td>Stop</td>
                     <td>
                       <i class="fas fa-play fa-2x" onclick="start_sim('{{ population }}')"></i>
                       <i class="fas fa-pause fa-2x" onclick="pause_sim('{{ population }}')"></i>
                       <i class="fas fa-stop fa-2x" onclick="stop_sim('{{ population }}')"></i>
-                        <i class="fas fa-file fa-2x" onclick="mp_status()"></i>
+                        <i class="fas fa-file fa-2x" onclick="mp_status('{{ population }}')"></i>
                     </td>
                   </tr>
                 {% endfor %}
@@ -57,7 +51,43 @@
           </div>
           <!-- end panel -->
         </div>
-        <!-- end col-12 -->
+        <!-- end col-6 -->
+
+              <!-- begin col-6 -->
+        <div class="col-lg-6">
+          <!-- begin panel -->
+          <div class="panel panel-inverse" data-sortable-id="ui-widget-1">
+            <div class="panel-heading">
+              <div class="panel-heading-btn">
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+              </div>
+              <h4 class="panel-title" id="status-title">&nbsp;</h4>
+            </div>
+            <div class="panel-body">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Thread</th>
+                    <th># simulations</th>
+                    <th>Bad</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="status-table">
+                </tbody>
+              </table>
+              <div id="status-message" >
+              </div>
+            </div>
+            <div class="hljs-wrapper">
+            </div>
+          </div>
+          <!-- end panel -->
+        </div>
+        <!-- end col-6 -->
       </div>
       <!-- end row -->
     </div>
@@ -85,12 +115,35 @@
             send_command(command_list)
         }
 
-        function mp_status(){
+        function mp_status(population){
+            $("#status-title").text(population)
+            $("#status-message").html("")
+            $("#status-table").html("")
+
             send_command(["_gui_mp_status"], show_mp_status)
         }
 
         function show_mp_status(data){
-            alert(JSON.stringify(data))
+            function get_status_row(name, sim, bad, status){
+                row = "<tr>"
+                row += "<td>" + name + "</td>"
+                row += "<td>" + sim + "</td>"
+                row += "<td>" + bad + "</td>"
+                row += "<td>" + status + "</td>"
+                row += "</tr>"
+                return row
+            }
+            message = JSON.parse(data.message)
+            $("#status-message").append("<p>"+message.time_elapsed+"</p>")
+            for(i=0; i<message.sim_processes.length;i++) {
+                $("#status-table").append(get_status_row(
+                    message.sim_processes[i].name,
+                    message.sim_processes[i].seq_count,
+                    message.sim_processes[i].err_count,
+                    message.sim_processes[i].status,
+                ))
+            }
+
         }
 
         function send_command(command_list, call_back){
