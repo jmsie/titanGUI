@@ -74,13 +74,15 @@ def send_command(command):
       for data in socket_handler.receive():
         recv.append(data.getMessage())
     except ConnectionRefusedError:
-      recv.append("Cannot connect to the server at {}:{}".format(
-        settings.TITAN_HOST, settings.TITAN_PORT))
+      msg = "Cannot connect to the server at {}:{}".format(
+        settings.TITAN_HOST, settings.TITAN_PORT)
+      recv.append(json.dumps({"msg":msg}))
 
   return recv
 
 # This function defines how to get the json form the titan response
 def get_command_json(string):
+  print(string)
   return json.loads(string[-1])
 
 

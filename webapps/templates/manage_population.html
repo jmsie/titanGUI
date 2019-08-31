@@ -36,6 +36,7 @@
                   </tr>
                 </thead>
                 <tbody>
+                {{ msg }}
                 {% for population in populations %}
                   <tr>
                     <td>{{population}}</td>
@@ -44,8 +45,8 @@
                     <td>Stop</td>
                     <td>
                       <i class="fas fa-play fa-2x" onclick="start_sim('{{ population }}')"></i>
-                      <i class="fas fa-pause fa-2x"></i>
-                      <i class="fas fa-stop fa-2x"></i>
+                      <i class="fas fa-pause fa-2x" onclick="pause_sim('{{ population }}')"></i>
+                      <i class="fas fa-stop fa-2x" onclick="stop_sim('{{ population }}')"></i>
                     </td>
                   </tr>
                 {% endfor %}
@@ -75,6 +76,17 @@
             ]
             send_command(command_list)
         }
+
+        function pause_sim(population){
+            command_list = ["mp_pause"]
+            send_command(command_list)
+        }
+
+        function stop_sim(population){
+            command_list = ["mp_stop"]
+            send_command(command_list)
+        }
+
 
         function send_command(command_list){
             command = command_list.shift()

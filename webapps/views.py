@@ -45,9 +45,15 @@ def new_population(request):
 
 def manage_populations(request):
   populations = get_command_json(send_command("_gui_container_list_population"))
-  context = {
-    "populations" : populations['list']
-  }
+  context = {}
+  if "list" in populations:
+    context = {
+      "populations": populations['list']
+    }
+  else:
+    context = {
+      "msg": populations['msg']
+    }
   return render(request, 'manage_population.html', context)
 
 def add_instrument(request):
