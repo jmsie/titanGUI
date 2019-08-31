@@ -68,8 +68,36 @@
 
 {% block js %}
     <script>
-       function start_sim(population) {
-           alert("Start " + population)
-       }
+        function start_sim(population) {
+            command_list = [
+                "set_current_population " + population,
+                "mp_start",
+            ]
+            send_command(command_list)
+        }
+
+        function send_command(command_list){
+            command = command_list.shift()
+            if (command == undefined) {
+                return
+            }else{
+                console.log(command)
+                $.ajax({
+                    url: "{% url 'console_send_command' %}",
+                    type: 'POST',
+                    data: {
+                        "command": command,
+                    },
+                    dataType: 'json',
+                    success: function(data){
+                        console.log(command + "...success")
+                        send_command(command_list)
+                    },
+                    error: function(){
+                        alert('ajax error');
+                    }
+                })
+             }
+        }
     </script>
 {% endblock %}
