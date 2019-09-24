@@ -13,13 +13,14 @@
 	
 	<!-- ================== BEGIN BASE CSS STYLE ================== -->
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-	<link href="../statics/assets/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
-	<link href="../statics/assets/plugins/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="../statics/assets/plugins/font-awesome/5.2/css/all.min.css" rel="stylesheet" />
-	<link href="../statics/assets/plugins/animate/animate.min.css" rel="stylesheet" />
-	<link href="../statics/assets/css/default/style.min.css" rel="stylesheet" />
-	<link href="../statics/assets/css/default/style-responsive.min.css" rel="stylesheet" />
-	<link href="../statics/assets/css/default/theme/default.css" rel="stylesheet" />
+	<link href="{% static "assets/plugins/jquery-ui/jquery-ui.min.css" %}" %}" rel="stylesheet" />
+    <link href="{% static "assets/plugins/jquery-ui/jquery-ui.min.css" %}" rel="stylesheet" />
+	<link href="{% static "assets/plugins/bootstrap/4.1.3/css/bootstrap.min.css" %}" rel="stylesheet" />
+	<link href="{% static "assets/plugins/font-awesome/5.2/css/all.min.css" %}" rel="stylesheet" />
+	<link href="{% static "assets/plugins/animate/animate.min.css" %}" rel="stylesheet" />
+	<link href="{% static "assets/css/default/style.min.css" %}" rel="stylesheet" />
+	<link href="{% static "assets/css/default/style-responsive.min.css" %}" rel="stylesheet" />
+	<link href="{% static "assets/css/default/theme/default.css" %}" rel="stylesheet" />
 	<!-- ================== END BASE CSS STYLE ================== -->
 
   <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
@@ -28,7 +29,7 @@
   <!-- ================== END PAGE LEVEL STYLE ================== -->
 	
 	<!-- ================== BEGIN BASE JS ================== -->
-	<script src="../statics/assets/plugins/pace/pace.min.js"></script>
+	<script src="{% static "assets/plugins/pace/pace.min.js" %}"></script>
 	<!-- ================== END BASE JS ================== -->
 </head>
 <body>
@@ -131,12 +132,6 @@
 							<li><a href="{% url 'manage_instrument' %}">Manage Instrument</a></li>
 						</ul>
 					</li>
-					<li class="active">
-						<a href="{% url 'simulation_result' %}">
-							<i class="fa fa-newspaper"></i>
-							<span>Simulations Reports</span>
-						</a>
-					</li>
 					<!-- begin sidebar minify button -->
 					<li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
 					<!-- end sidebar minify button -->
@@ -160,18 +155,18 @@
 	<!-- end page container -->
 	
 	<!-- ================== BEGIN BASE JS ================== -->
-	<script src="../statics/assets/plugins/jquery/jquery-3.3.1.min.js"></script>
-	<script src="../statics/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
-	<script src="../statics/assets/plugins/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+	<script src="{% static "assets/plugins/jquery/jquery-3.3.1.min.js" %}"></script>
+	<script src="{% static "assets/plugins/jquery-ui/jquery-ui.min.js" %}"></script>
+	<script src="{% static "assets/plugins/bootstrap/4.1.3/js/bootstrap.bundle.min.js" %}"></script>
 	<!--[if lt IE 9]>
-		<script src="../statics/assets/crossbrowserjs/html5shiv.js"></script>
-		<script src="../statics/assets/crossbrowserjs/respond.min.js"></script>
-		<script src="../statics/assets/crossbrowserjs/excanvas.min.js"></script>
+		<script src="{% static "assets/crossbrowserjs/html5shiv.js" %}"></script>
+		<script src="{% static "assets/crossbrowserjs/respond.min.js" %}"></script>
+		<script src="{% static "assets/crossbrowserjs/excanvas.min.js" %}"></script>
 	<![endif]-->
-	<script src="../statics/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-	<script src="../statics/assets/plugins/js-cookie/js.cookie.js"></script>
-	<script src="../statics/assets/js/theme/default.min.js"></script>
-	<script src="../statics/assets/js/apps.min.js"></script>
+	<script src="{% static "assets/plugins/slimscroll/jquery.slimscroll.min.js" %}"></script>
+	<script src="{% static "assets/plugins/js-cookie/js.cookie.js" %}"></script>
+	<script src="{% static "assets/js/theme/default.min.js" %}"></script>
+	<script src="{% static "assets/js/apps.min.js" %}"></script>
 	<!-- ================== END BASE JS ================== -->
   
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
