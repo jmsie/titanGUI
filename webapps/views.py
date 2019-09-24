@@ -62,8 +62,38 @@ def add_instrument(request):
 def manage_instrument(request):
   return render(request, 'manage_instrument.html')
 
-def simulation_result(request):
-  return render(request, 'simulation_result.html')
+def simulation_result(request, current_population):
+  send_command("set_current_population " + current_population)
+  send_command("get_top_sequences -sequence_name gui_L -method_name  base:mix+L -num 3")
+  send_command("get_top_sequences -sequence_name gui_S -method_name  base:mix+S -num 3")
+  response = get_command_json(send_command("_gui_container_list_sequence"))
+
+  sequences_L = []
+  sequences_S = []
+  for index, sequence_name in enumerate(response['list']):
+    seq = {
+      "index": index,
+      "name": sequence_name,
+      "MDD": 0,
+      "profit": 0,
+    }
+
+    if "L" in sequence_name:
+      sequences_L.append(seq)
+    else:
+      sequences_S.append(seq)
+
+
+  status = "OK"
+  context = {
+    "status": status,
+    "sequences_L": sequences_L,
+    "sequences_S": sequences_S,
+    "current_population": current_population,
+  }
+  print(context)
+
+  return render(request, 'simulation_result.html', context)
 
 
 ### API ###

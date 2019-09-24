@@ -20,7 +20,7 @@
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
               </div>
-              <h4 class="panel-title">Population: XAUUSD_2010_2017</h4>
+              <h4 class="panel-title">Population: {{ current_population }}</h4>
             </div>
             <div class="panel-body">
         
@@ -36,29 +36,19 @@
                     <table class="table table-striped">
                       <thead>
                         <th>#</th>
-                        <th>Profit</th>
+                        <th>Sequence name</th>
                         <th>MDD</th>
                         <th>rms</th>
                       </thead>
                       <tbody>
+                      {% for sequence in sequences_L %}
                         <tr>
-                          <td>1</td>
-                          <td>142421</td>
-                          <td>3912</td>
-                          <td>6.9823</td>
+                          <td>{{ sequence.index }}</td>
+                          <td>{{ sequence.name }}</td>
+                          <td>{{ sequence.MDD }}</td>
+                          <td>{{ sequence.profit }}</td>
                         </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>142421</td>
-                          <td>3912</td>
-                          <td>6.9823</td>
-                        </tr>
-                        <tr>
-                          <td>3</td>
-                          <td>142421</td>
-                          <td>3912</td>
-                          <td>6.9823</td>
-                        </tr>
+                      {% endfor %}
                       </tbody>
                     </table>						
                   </div>
@@ -71,29 +61,19 @@
                     <table class="table table-striped">
                       <thead>
                         <th>#</th>
-                        <th>Profit</th>
+                        <th>Sequence name</th>
                         <th>MDD</th>
                         <th>rms</th>
                       </thead>
                       <tbody>
+                      {% for sequence in sequences_S %}
                         <tr>
-                          <td>1</td>
-                          <td>142421</td>
-                          <td>3912</td>
-                          <td>6.9823</td>
+                          <td>{{ sequence.index }}</td>
+                          <td>{{ sequence.name }}</td>
+                          <td>{{ sequence.MDD }}</td>
+                          <td>{{ sequence.profit }}</td>
                         </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>142421</td>
-                          <td>3912</td>
-                          <td>6.9823</td>
-                        </tr>
-                        <tr>
-                          <td>3</td>
-                          <td>142421</td>
-                          <td>3912</td>
-                          <td>6.9823</td>
-                        </tr>
+                      {% endfor %}
                       </tbody>
                     </table>						
                   </div>
