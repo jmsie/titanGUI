@@ -5,12 +5,15 @@ Author: Sean Ngu
 Website: http://www.seantheme.com/color-admin-v4.2/admin/
 */
 
+$("#simulation_result_spin").hide()
+
 
 function get_simulation_result (seq_name) {
+    $("#seq_name").text(seq_name)
+    $("#interactive-chart").hide()
+	$("#simulation_result_spin").show()
     send_command(["parse_sequence -sequence " + seq_name])
 	send_command(['run_simulation'], handle_simulation_finish)
-	// TODO Create a async here to send this command
-	send_command(["_gui_show_list_of_trades -sequence " + seq_name], handle_simulation_result)
 }
 
 function handle_simulation_result(data){
@@ -31,14 +34,16 @@ function handle_simulation_result(data){
 		max_profit = Math.max(max_profit,  total_profit)
 		min_profit = Math.min(min_profit, total_profit)
 	}
-	console.log(profits)
 	handleInteractiveChart(profits, base_index, time_line, max_profit, min_profit)
 
 }
 
 function handle_simulation_finish(data) {
 	console.log(data)
-	alert("Simulation finish")
+    $("#simulation_result_spin").hide()
+    seq_name = $("#seq_name").text()
+	$("#interactive-chart").show()
+	send_command(["_gui_show_list_of_trades -sequence " + seq_name], handle_simulation_result)
 }
 
 

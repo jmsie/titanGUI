@@ -1,6 +1,7 @@
     {% extends 'base.html' %}
 		{% load static %}
     {% block css %}
+        <link href="{% static "css/simulation_result.css" %}" rel="stylesheet" />
     {% endblock %}
     {% block content %}
     <div id="content" class="content">
@@ -91,9 +92,10 @@
 								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
 							</div>
-							<h4 class="panel-title">Simulation Result</h4>
+							<h4 class="panel-title">Simulation Result: <span id="seq_name"></span></h4>
 						</div>
 						<div class="panel-body">
+                            <i id="simulation_result_spin" class="fas fa-sync fa-spin fa-7x"></i>
 							<div id="interactive-chart" class="height-sm"></div>
 						</div>
 					</div>
