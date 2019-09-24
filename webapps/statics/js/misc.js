@@ -5,7 +5,7 @@ function send_command(command_list, call_back){
     }else{
         console.log(command)
         $.ajax({
-            url: api_url,
+            url: console_send_command_api,
             type: 'POST',
             data: {
                 "command": command,

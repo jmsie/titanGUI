@@ -172,7 +172,7 @@
   
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
     <script>
-        let api_url = "{% url 'console_send_command' %}"
+        let console_send_command_api = "{% url 'console_send_command' %}"
     $.ajaxSetup({
         data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
     });
