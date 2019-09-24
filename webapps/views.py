@@ -63,19 +63,28 @@ def manage_instrument(request):
   return render(request, 'manage_instrument.html')
 
 def simulation_result(request, current_population):
+  def floar2String(num):
+    if num == None:
+      return "N/A"
+    return "{:.1f}".format(num)
   send_command("set_current_population " + current_population)
   send_command("get_top_sequences -sequence_name gui_L -method_name  base:mix+L -num 3")
   send_command("get_top_sequences -sequence_name gui_S -method_name  base:mix+S -num 3")
-  response = get_command_json(send_command("_gui_container_list_sequence"))
+  sequences = get_command_json(send_command("_gui_container_list_sequence"))
 
   sequences_L = []
   sequences_S = []
-  for index, sequence_name in enumerate(response['list']):
+  for index, sequence_name in enumerate(sequences['list']):
+    send_command("prepare_strategy_report -sequence " + sequence_name)
+    sequences_report = get_command_json(send_command("_gui_show_sequence  -sequence " + sequence_name))
+    mdd = floar2String(sequences_report['dict']['rpt']['mdd'])
+    profit = floar2String(sequences_report['dict']['rpt']['profit'])
+
     seq = {
       "index": index,
       "name": sequence_name,
-      "MDD": 0,
-      "profit": 0,
+      "MDD": mdd,
+      "profit": profit,
     }
 
     if "L" in sequence_name:
