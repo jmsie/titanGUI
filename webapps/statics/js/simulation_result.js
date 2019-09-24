@@ -6,7 +6,43 @@ Website: http://www.seantheme.com/color-admin-v4.2/admin/
 */
 
 
-var handleInteractiveChart = function () {
+function get_simulation_result (seq_name) {
+    send_command(["parse_sequence -sequence " + seq_name])
+	send_command(['run_simulation'], handle_simulation_finish)
+	// TODO Create a async here to send this command
+	send_command(["_gui_show_list_of_trades -sequence " + seq_name], handle_simulation_result)
+}
+
+function handle_simulation_result(data){
+	console.log(data);
+	obj = JSON.parse(data.message)
+	trades = obj.list
+	profits = []
+	base_index = []
+	time_line = []
+	total_profit = 0
+	max_profit = -Number.MAX_VALUE
+	min_profit = Number.MAX_VALUE
+	for (var i = 0; i < trades.length; i++){
+		total_profit += trades[i][0][5]
+		profits.push([i, total_profit])
+		base_index.push([i, total_profit])
+		time_line.push([i, ""])
+		max_profit = Math.max(max_profit,  total_profit)
+		min_profit = Math.min(min_profit, total_profit)
+	}
+	console.log(profits)
+	handleInteractiveChart(profits, base_index, time_line, max_profit, min_profit)
+
+}
+
+function handle_simulation_finish(data) {
+	console.log(data)
+	alert("Simulation finish")
+}
+
+
+function handleInteractiveChart(profits, base_index, time_line, max_profit) {
 	"use strict";
 	function showTooltip(x, y, contents) {
 		$('<div id="tooltip" class="flot-tooltip">' + contents + '</div>').css( {
@@ -15,36 +51,23 @@ var handleInteractiveChart = function () {
 		}).appendTo("body").fadeIn(200);
 	}
 	if ($('#interactive-chart').length !== 0) {
-	
-		var data1 = [ 
-			[1, 40], [2, 50], [3, 60], [4, 60], [5, 60], [6, 65], [7, 75], [8, 90], [9, 100], [10, 105], 
-			[11, 110], [12, 110], [13, 120], [14, 130], [15, 135],[16, 145], [17, 132], [18, 123], [19, 135], [20, 150] 
-		];
-		var data2 = [
-			[1, 10],  [2, 6], [3, 10], [4, 12], [5, 18], [6, 20], [7, 25], [8, 23], [9, 24], [10, 25], 
-			[11, 18], [12, 30], [13, 25], [14, 25], [15, 30], [16, 27], [17, 20], [18, 18], [19, 31], [20, 23]
-		];
-		var xLabel = [
-			[1,''],[2,''],[3,'May&nbsp;15'],[4,''],[5,''],[6,'May&nbsp;19'],[7,''],[8,''],[9,'May&nbsp;22'],[10,''],
-			[11,''],[12,'May&nbsp;25'],[13,''],[14,''],[15,'May&nbsp;28'],[16,''],[17,''],[18,'May&nbsp;31'],[19,''],[20,'']
-		];
 		$.plot($("#interactive-chart"), [{
-				data: data1, 
-				label: "Page Views", 
+				data: profits,
+				label: "Profit",
 				color: COLOR_BLUE,
-				lines: { show: true, fill:false, lineWidth: 2 },
-				points: { show: true, radius: 3, fillColor: COLOR_WHITE },
+				lines: { show: true, fill:false, lineWidth: 1 },
+				points: { show: true, radius: 1, fillColor: COLOR_WHITE },
 				shadowSize: 0
 			}, {
-				data: data2,
-				label: 'Visitors',
+				data: base_index,
+				label: 'Base index',
 				color: COLOR_GREEN,
-				lines: { show: true, fill:false, lineWidth: 2 },
-				points: { show: true, radius: 3, fillColor: COLOR_WHITE },
+				lines: { show: true, fill:false, lineWidth: 1 },
+				points: { show: true, radius: 1, fillColor: COLOR_WHITE },
 				shadowSize: 0
 			}], {
-				xaxis: {  ticks:xLabel, tickDecimals: 0, tickColor: COLOR_BLACK_TRANSPARENT_2 },
-				yaxis: {  ticks: 10, tickColor: COLOR_BLACK_TRANSPARENT_2, min: 0, max: 200 },
+				xaxis: {  ticks:time_line, tickDecimals: 0, tickColor: COLOR_BLACK_TRANSPARENT_2 },
+				yaxis: {  ticks: 10, tickColor: COLOR_BLACK_TRANSPARENT_2, min: min_profit, max: max_profit },
 				grid: { 
 				hoverable: true, 
 				clickable: true,
@@ -82,13 +105,3 @@ var handleInteractiveChart = function () {
 	}
 };
 
-
-var Dashboard = function () {
-	"use strict";
-	return {
-		//main function
-		init: function () {
-			handleInteractiveChart();
-		}
-	};
-}();

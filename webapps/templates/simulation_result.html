@@ -42,7 +42,7 @@
                       </thead>
                       <tbody>
                       {% for sequence in sequences_L %}
-                        <tr>
+                        <tr onclick="get_simulation_result('{{ sequence.name }}');">
                           <td>{{ sequence.index }}</td>
                           <td>{{ sequence.name }}</td>
                           <td>{{ sequence.MDD }}</td>
@@ -67,7 +67,7 @@
                       </thead>
                       <tbody>
                       {% for sequence in sequences_S %}
-                        <tr>
+                        <tr onclick="get_simulation_result('{{ sequence.name }}');">
                           <td>{{ sequence.index }}</td>
                           <td>{{ sequence.name }}</td>
                           <td>{{ sequence.MDD }}</td>
@@ -91,7 +91,7 @@
 								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
 							</div>
-							<h4 class="panel-title">Website Analytics (Last 7 Days)</h4>
+							<h4 class="panel-title">Simulation Result</h4>
 						</div>
 						<div class="panel-body">
 							<div id="interactive-chart" class="height-sm"></div>
