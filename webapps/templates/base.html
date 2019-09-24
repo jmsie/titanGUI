@@ -167,10 +167,12 @@
 	<script src="{% static "assets/plugins/js-cookie/js.cookie.js" %}"></script>
 	<script src="{% static "assets/js/theme/default.min.js" %}"></script>
 	<script src="{% static "assets/js/apps.min.js" %}"></script>
+    <script src="{% static "js/misc.js" %}"></script>
 	<!-- ================== END BASE JS ================== -->
   
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
     <script>
+        let api_url = "{% url 'console_send_command' %}"
     $.ajaxSetup({
         data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
     });
