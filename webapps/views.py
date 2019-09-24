@@ -185,3 +185,24 @@ def create_population_and_add_resolutions(request):
 
 
 
+def cg_write(request):
+  seq_name = request.POST.get('seq_name')
+  path = "./saves/codes/"+seq_name+".txt"
+  send_command("cg_write -sequence "+seq_name+" -file " + path)
+  context = {
+    "path": path,
+    "file_name": seq_name+".txt",
+  }
+  return JsonResponse(context)
+
+
+
+
+
+
+
+
+
+
+
+

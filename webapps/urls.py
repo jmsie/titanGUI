@@ -13,6 +13,7 @@ urlpatterns = [
   path('console', views.console, name="console"),
 
   path('api/create_population_and_add_resolutions', views.create_population_and_add_resolutions, name="create_population_and_add_resolutions"),
-  path('api/console', views.console_send_command, name="console_send_command")
+  path('api/console', views.console_send_command, name="console_send_command"),
+  path('api/cg_write', views.cg_write, name="cg_write")
 ]
 

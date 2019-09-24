@@ -6,11 +6,13 @@ Website: http://www.seantheme.com/color-admin-v4.2/admin/
 */
 
 $("#simulation_result_spin").hide()
+$("#simulation_result_download").hide()
 
 
 function get_simulation_result (seq_name) {
     $("#seq_name").text(seq_name)
     $("#interactive-chart").hide()
+	$("#simulation_result_download").hide()
 	$("#simulation_result_spin").show()
     send_command(["parse_sequence -sequence " + seq_name])
 	send_command(['run_simulation'], handle_simulation_finish)
@@ -43,9 +45,40 @@ function handle_simulation_finish(data) {
     $("#simulation_result_spin").hide()
     seq_name = $("#seq_name").text()
 	$("#interactive-chart").show()
+	$("#simulation_result_download").show()
 	send_command(["_gui_show_list_of_trades -sequence " + seq_name], handle_simulation_result)
 }
 
+function prepare_code(){
+	$.ajax({
+		url: cg_write_api,
+		type: 'POST',
+		data: {
+			"seq_name": $("#seq_name").text(),
+		},
+		dataType: 'json',
+		success: function(data){
+			console.log(command + "...success")
+            download_code(data)
+		},
+		error: function(){
+			alert('ajax error');
+		}
+	})
+}
+
+function download_code(data) {
+	console.log(data.path)
+    fetch(static_url + data.path).then(res => res.blob().then(blob => {
+        var a = document.createElement('a');
+        var url = window.URL.createObjectURL(blob);
+        var filename = data.file_name;
+        a.href = url;
+        a.download = filename;
+        a.click();
+        window.URL.revokeObjectURL(url);
+    }))
+}
 
 function handleInteractiveChart(profits, base_index, time_line, max_profit) {
 	"use strict";
