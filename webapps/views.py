@@ -67,10 +67,13 @@ def simulation_result(request, current_population):
     if num == None:
       return "N/A"
     return "{:.1f}".format(num)
-  send_command("set_current_population " + current_population)
-  send_command("get_top_sequences -sequence_name gui_L -method_name  base:mix+L -num 3")
-  send_command("get_top_sequences -sequence_name gui_S -method_name  base:mix+S -num 3")
+
   sequences = get_command_json(send_command("_gui_container_list_sequence"))
+  if len(sequences['list']) == 0:
+    send_command("set_current_population " + current_population)
+    send_command("get_top_sequences -sequence_name gui_L -method_name  base:mix+L -num 3")
+    send_command("get_top_sequences -sequence_name gui_S -method_name  base:mix+S -num 3")
+    sequences = get_command_json(send_command("_gui_container_list_sequence"))
 
   sequences_L = []
   sequences_S = []
