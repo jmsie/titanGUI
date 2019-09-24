@@ -40,6 +40,7 @@
                       <i class="fas fa-pause fa-2x" onclick="pause_sim('{{ population }}')"></i>
                       <i class="fas fa-stop fa-2x" onclick="stop_sim('{{ population }}')"></i>
                         <i class="fas fa-file fa-2x" onclick="mp_status('{{ population }}')"></i>
+                        <a href="{% url 'simulation_result' population %}"><i class="fas fa-file fa-2x" ></i></a>
                     </td>
                   </tr>
                 {% endfor %}

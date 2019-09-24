@@ -9,7 +9,7 @@ urlpatterns = [
   path("manage_population", views.manage_populations, name="manage_population"),
   path("add_instrument", views.add_instrument, name="add_instrument"),
   path("manage_instrument", views.manage_instrument, name="manage_instrument"),
-  path("simulation_result", views.simulation_result, name="simulation_result"),
+  path("simulation_result/<str:current_population>", views.simulation_result, name="simulation_result"),
   path('console', views.console, name="console"),
 
   path('api/create_population_and_add_resolutions', views.create_population_and_add_resolutions, name="create_population_and_add_resolutions"),
