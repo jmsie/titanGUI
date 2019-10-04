@@ -23,11 +23,24 @@ class Simulation_settings():
         if line:
           if line[0] == "#" or len(line) == 0:
             continue
-          name, parameter = line.split(':')
+          name, parameter = line[:-1].split(':')
           settings[name] = parameter
         else:
           break
     return settings
+
+  def save_simulation_settings(self, request):
+    file_name = request.POST.get('file_name')
+    file = self.path + file_name + ".setting.yml"
+    with open(file, "w") as fp:
+      for key, value in request.POST.items():
+        if key == "file_name" or key == "csrfmiddlewaretoken":
+          continue
+        else:
+          fp.write("{}: {}\n".format(key, value))
+    fp.close()
+
+
 
 def build_time_range(request):
   start_year = request.POST.get('start_year')

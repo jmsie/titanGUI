@@ -18,6 +18,8 @@ urlpatterns = [
   path('api/console', views.console_send_command, name="console_send_command"),
   path('api/cg_write', views.cg_write, name="cg_write"),
   path('api/get_simulation_settings', views.get_simulation_settings, name="get_simulation_settings"),
+  path('api/save_simulation_settings', views.save_simulation_settings, name="save_simulation_settings"),
+
 
 ]
 

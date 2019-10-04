@@ -16,6 +16,12 @@ def get_simulation_settings(request):
   return JsonResponse(
     simulation_settings.get_simulation_settings(request.POST.get('file_name')))
 
+def save_simulation_settings(request):
+  simulation_settings = Simulation_settings()
+  if simulation_settings.save_simulation_settings(request):
+    return JsonResponse({"status": "success"})
+  return JsonResponse({"status": "fail"})
+
 def dash_board(request):
   return render(request, 'dash_board.html')
 
