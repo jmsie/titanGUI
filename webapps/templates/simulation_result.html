@@ -24,7 +24,6 @@
               <h4 class="panel-title">Population: {{ current_population }}</h4>
             </div>
             <div class="panel-body">
-        
               <div class="row">
                 <!-- begin col-4 -->
                 <div class="col-lg-4">
@@ -51,7 +50,7 @@
                         </tr>
                       {% endfor %}
                       </tbody>
-                    </table>						
+                    </table>
                   </div>
                   <div class="panel panel-inverse" data-sortable-id="index-1">
                     <div class="panel-heading">
@@ -76,53 +75,40 @@
                         </tr>
                       {% endfor %}
                       </tbody>
-                    </table>						
+                    </table>
                   </div>
                 </div>
                 <!-- end col-4 -->
-
-				<!-- begin col-8 -->
-				<div class="col-lg-8">
-					<!-- begin panel -->
-					<div class="panel panel-inverse" data-sortable-id="index-1">
-						<div class="panel-heading">
-							<div class="panel-heading-btn">
-								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
-								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
-							</div>
-							<h4 class="panel-title">Simulation Result: <span id="seq_name"></span></h4>
-						</div>
-						<div class="panel-body">
-                            <i id="simulation_result_spin" class="fas fa-sync fa-spin fa-7x"></i>
-							<div id="interactive-chart" class="height-sm"></div>
-                            <i id="simulation_result_download" onclick="prepare_code()" class="fas fa-download ">Download source code</i>
-						</div>
-					</div>
-					<!-- end panel -->
-					
-
-
-
+                <!-- begin col-8 -->
+                <div class="col-lg-8">
+                  <!-- begin panel -->
+                  <div class="panel panel-inverse" data-sortable-id="index-1">
+                    <div class="panel-heading">
+                      <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                      </div>
+                      <h4 class="panel-title">Simulation Result: <span id="seq_name"></span></h4>
+                    </div>
+                    <div class="panel-body">
+                      <i id="simulation_result_spin" class="fas fa-sync fa-spin fa-7x"></i>
+                      <div id="interactive-chart" class="height-sm"></div>
+                      <i id="simulation_result_download" onclick="prepare_code()" class="fas fa-download ">Download source code</i>
+                    </div>
+                  </div>
+                  <!-- end panel -->
+                </div>
+                <!-- end col-8 -->
               </div>
               <!-- end row -->
-
-
-
-
-
-
             </div>
-            <div class="hljs-wrapper">
-            </div>
+            <!-- end panel -->
           </div>
           <!-- end panel -->
         </div>
         <!-- end col-12 -->
-
-
-
       </div>
       <!-- end row -->
     </div>
