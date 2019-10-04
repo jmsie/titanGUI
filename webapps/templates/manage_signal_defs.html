@@ -64,13 +64,13 @@
                     <div class="panel-body">
                       <i id="simulation_result_spin" class="fas fa-sync fa-spin fa-7x"></i>
                       <p class="form-group">
-                        <form id="simulation_settings">
+                        <form id="signal_defs_form">
                           <label>file name</label>
                           <input type="text" class="form-control" id="file_name" name="file_name"/>
                           <label>Signal def:</label>
                           <textarea class="form-control" rows="15" id="signal_defs" name="signal_defs"></textarea>
                           {% csrf_token %}
-                          <p><button  onclick="save_simulation_settings()" id="save_settings_btn"  class="btn btn-sm btn-primary">Save</button></p>
+                          <p><button  onclick="save_signal_defs()" id="save_settings_btn"  class="btn btn-sm btn-primary">Save</button></p>
                         </form>
                       </p>
                     </div>

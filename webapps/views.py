@@ -9,7 +9,11 @@ def get_signal_defs(request):
   return JsonResponse(signal_def.get_signal_defs(request.POST.get('file_name')), safe=False)
 
 def save_signal_defs(request):
-  pass
+  signal_def = Signal_defs()
+  if signal_def.save_signal_defs(request):
+    return JsonResponse({"status": "success"})
+  return JsonResponse({"status": "fail"})
+
 
 def manage_signal_defs(request):
   signal_defs = Signal_defs()

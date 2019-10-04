@@ -22,6 +22,15 @@ class Signal_defs():
       data = yaml.load(fp)
     return json.dumps(data, indent=2)
 
+  def save_signal_defs(self, request):
+    import yaml, json
+    file_name = request.POST.get('file_name')
+    file = self.path + file_name + self.posfix
+    signal_def_json = json.loads(request.POST.get('signal_defs'))
+
+    with open(file, "w") as fp:
+      yaml.dump(signal_def_json, fp)
+    fp.close()
 
 class Simulation_settings():
   def __init__(self):
@@ -52,7 +61,7 @@ class Simulation_settings():
 
   def save_simulation_settings(self, request):
     file_name = request.POST.get('file_name')
-    file = self.path + file_name + ".setting.yml"
+    file = self.path + file_name + self.posfix
     with open(file, "w") as fp:
       for key, value in request.POST.items():
         if key == "file_name" or key == "csrfmiddlewaretoken":

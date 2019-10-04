@@ -1,10 +1,10 @@
 $("#simulation_result_spin").hide()
 
-function save_simulation_settings() {
-    var formData = $('#simulation_settings').serializeArray();
+function save_signal_defs() {
+    var formData = $('#signal_defs_form').serializeArray();
     var data = $.param(formData);
 	$.ajax({
-		url: save_simulation_settings_api,
+		url: save_signal_defs_api,
 		type: 'POST',
 		data: data,
 		dataType: 'json',
@@ -19,6 +19,7 @@ function save_simulation_settings() {
 }
 
 function get_signal_defs(file_name){
+    $("#signal_defs_form").hide()
     $("#signal_def_name").text(file_name)
 	$("#file_name").val(file_name)
 	//$("#file_name").attr("disabled", "true")
@@ -34,6 +35,7 @@ function get_signal_defs(file_name){
 			$("#simulation_result_spin").hide()
             console.log(data)
             $("#signal_defs").text(data)
+			$("#signal_defs_form").show()
 		},
 		error: function(){
 			alert('ajax error');
