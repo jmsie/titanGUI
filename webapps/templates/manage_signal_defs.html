@@ -1,0 +1,107 @@
+    {% extends 'base.html' %}
+		{% load static %}
+    {% block css %}
+        <link href="{% static "css/simulation_result.css" %}" rel="stylesheet" />
+    {% endblock %}
+    {% block content %}
+    <div id="content" class="content">
+      <!-- begin page-header -->
+      <h1 class="page-header">Edit signal defs<small></small></h1>
+      <!-- end page-header -->
+      <!-- begin row -->
+      <div class="row">
+        <!-- begin col-12 -->
+        <div class="col-lg-12">
+          <!-- begin panel -->
+          <div class="panel panel-inverse" data-sortable-id="ui-widget-1">
+            <div class="panel-heading">
+              <div class="panel-heading-btn">
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+              </div>
+              <h4 class="panel-title">_</h4>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <!-- begin col-4 -->
+                <div class="col-lg-4">
+                  <div class="panel panel-inverse" data-sortable-id="index-1">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        Signal def files
+                      </h4>
+                    </div>
+                    <table class="table table-striped">
+                      <thead>
+                        <th>File name</th>
+                      </thead>
+                      <tbody>
+                      {% for file in files %}
+                        <tr onclick="get_signal_defs('{{ file }}');">
+                          <td>{{ file }}</td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!-- end col-4 -->
+                <!-- begin col-8 -->
+                <div class="col-lg-8">
+                  <!-- begin panel -->
+                  <div class="panel panel-inverse" data-sortable-id="index-1">
+                    <div class="panel-heading">
+                      <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                      </div>
+                      <h4 class="panel-title">Signal def file: <span id="signal_def_name"></span></h4>
+                    </div>
+                    <div class="panel-body">
+                      <i id="simulation_result_spin" class="fas fa-sync fa-spin fa-7x"></i>
+                      <p class="form-group">
+                        <form id="simulation_settings">
+                          <label>file name</label>
+                          <input type="text" class="form-control" id="file_name" name="file_name"/>
+                          <label>Signal def:</label>
+                          <textarea class="form-control" rows="15" id="signal_defs" name="signal_defs"></textarea>
+                          {% csrf_token %}
+                          <p><button  onclick="save_simulation_settings()" id="save_settings_btn"  class="btn btn-sm btn-primary">Save</button></p>
+                        </form>
+                      </p>
+                    </div>
+                  </div>
+                  <!-- end panel -->
+                </div>
+                <!-- end col-8 -->
+              </div>
+              <!-- end row -->
+            </div>
+            <!-- end panel -->
+          </div>
+          <!-- end panel -->
+        </div>
+        <!-- end col-12 -->
+      </div>
+      <!-- end row -->
+    </div>
+    {% endblock content %}
+
+
+{% block js %}
+    <script>
+        let get_signal_defs_api = "{% url 'get_signal_defs' %}"
+        let save_signal_defs_api = "{% url 'save_signal_defs' %}"
+    </script>
+	<script src="{% static 'assets/plugins/flot/jquery.flot.min.js' %} "></script>
+  <script src="{% static 'js/manage_signal_defs.js' %}"></script>
+  <script>
+    $(document).ready(function() {
+			Dashboard.init();
+    });
+  </script>
+{% endblock %}

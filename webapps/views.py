@@ -4,6 +4,20 @@ from webapps.models import *
 from webapps.helpers import *
 import json
 
+def get_signal_defs(request):
+  signal_def = Signal_defs()
+  return JsonResponse(signal_def.get_signal_defs(request.POST.get('file_name')), safe=False)
+
+def save_signal_defs(request):
+  pass
+
+def manage_signal_defs(request):
+  signal_defs = Signal_defs()
+  context = {
+    "files": signal_defs.get_signal_def_files()
+  }
+  return render(request, "manage_signal_defs.html", context)
+
 def manage_simulation_settings(request):
   simulation_settings = Simulation_settings()
   context = {

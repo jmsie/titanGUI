@@ -2,6 +2,27 @@ import datetime
 from django.conf import settings
 import json
 
+class Signal_defs():
+  def __init__(self):
+    self.path = settings.TITAN + "/signal_defs/"
+    self.posfix = ".signal_def.yml"
+
+  def get_signal_def_files(self):
+    from os import listdir
+    files = []
+    for file in listdir(self.path):
+      files.append(file.split('.')[0])
+    return files
+
+  def get_signal_defs(self, file_name):
+    import yaml, json
+    data = ""
+    file = self.path + file_name + self.posfix
+    with open(file) as fp:
+      data = yaml.load(fp)
+    return json.dumps(data, indent=2)
+
+
 class Simulation_settings():
   def __init__(self):
     self.path = settings.TITAN + "/settings/"
