@@ -11,6 +11,8 @@ urlpatterns = [
   path("manage_instrument", views.manage_instrument, name="manage_instrument"),
   path("simulation_result/<str:current_population>", views.simulation_result, name="simulation_result"),
   path('console', views.console, name="console"),
+  path('manage_simulation_settings', views.manage_simulation_settings, name="manage_simulation_settings"),
+
 
   path('api/create_population_and_add_resolutions', views.create_population_and_add_resolutions, name="create_population_and_add_resolutions"),
   path('api/console', views.console_send_command, name="console_send_command"),

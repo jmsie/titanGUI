@@ -4,7 +4,12 @@ from webapps.models import *
 from webapps.helpers import *
 import json
 
-# Create your views here.
+def manage_simulation_settings(request):
+  context = {
+    "files": get_setting_files(),
+  }
+  return render(request, 'manage_simulation_settings.html', context)
+
 
 def dash_board(request):
   return render(request, 'dash_board.html')

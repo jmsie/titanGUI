@@ -2,6 +2,15 @@ import datetime
 from django.conf import settings
 import json
 
+def get_setting_files():
+  from os import listdir
+  path = settings.TITAN + "/settings"
+  files = []
+  for file in listdir(path):
+    files.append(file.split('.')[0])
+  return files
+
+
 def build_time_range(request):
   start_year = request.POST.get('start_year')
   start_month = request.POST.get('start_month')
