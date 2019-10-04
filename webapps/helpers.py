@@ -2,14 +2,32 @@ import datetime
 from django.conf import settings
 import json
 
-def get_setting_files():
-  from os import listdir
-  path = settings.TITAN + "/settings"
-  files = []
-  for file in listdir(path):
-    files.append(file.split('.')[0])
-  return files
+class Simulation_settings():
+  def __init__(self):
+    self.path = settings.TITAN + "/settings/"
+    self.posfix = ".setting.yml"
 
+  def get_setting_files(self):
+    from os import listdir
+    files = []
+    for file in listdir(self.path):
+      files.append(file.split('.')[0])
+    return files
+
+  def get_simulation_settings(self, file_name):
+    settings = {}
+    file = self.path + file_name + self.posfix
+    with open(file) as fp:
+      while True:
+        line = fp.readline()
+        if line:
+          if line[0] == "#" or len(line) == 0:
+            continue
+          name, parameter = line.split(':')
+          settings[name] = parameter
+        else:
+          break
+    return settings
 
 def build_time_range(request):
   start_year = request.POST.get('start_year')

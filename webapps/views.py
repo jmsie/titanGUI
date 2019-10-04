@@ -5,11 +5,16 @@ from webapps.helpers import *
 import json
 
 def manage_simulation_settings(request):
+  simulation_settings = Simulation_settings()
   context = {
-    "files": get_setting_files(),
+    "files": simulation_settings.get_setting_files(),
   }
   return render(request, 'manage_simulation_settings.html', context)
 
+def get_simulation_settings(request):
+  simulation_settings = Simulation_settings()
+  return JsonResponse(
+    simulation_settings.get_simulation_settings(request.POST.get('file_name')))
 
 def dash_board(request):
   return render(request, 'dash_board.html')

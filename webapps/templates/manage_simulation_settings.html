@@ -59,11 +59,36 @@
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
                       </div>
-                      <h4 class="panel-title">Settings: <span id="seq_name"></span></h4>
+                      <h4 class="panel-title">Settings: <span id="setting_name"></span></h4>
                     </div>
                     <div class="panel-body">
                       <i id="simulation_result_spin" class="fas fa-sync fa-spin fa-7x"></i>
-                      <div id="interactive-chart" class="height-sm"></div>
+                      <div class="form-group">
+                        <label>slippage: Cost = slippage($)*2</label>
+                        <input type="text" class="form-control" id="slippage"/>
+                        <label>entry_commision: Cost = entry_commision*entry*bigpointvalue</label>
+                        <input type="text" class="form-control" id="entry_commision"/>
+                        <label>exit_commision: Cost = exit_commision*exit*bigpointvalue</label>
+                        <input type="text" class="form-control" id="exit_commision"/>
+                        <label>trading_fee: Cost = trading_fee($)*2</label>
+                        <input type="text" class="form-control" id="trading_fee"/>
+                        <label>swap_long: Cost = swap_long($)*days if position > 0</label>
+                        <input type="text" class="form-control" id="swap_long"/>
+                        <label>swap_short: Cost = swap_short($)*days if position < 0</label>
+                        <input type="text" class="form-control" id="swap_short"/>
+                        <label>max_hold: Maximum holds when trading. Default is 1.</label>
+                        <input type="text" class="form-control" id="max_hold"/>
+                        <label>max_bar_in_use: Maximum bar in use for simulation.</label>
+                        <label>  Simulation will fail if signal uses more bars than this setting.</label>
+                        <label>  Increasing this value will consume more memory in simulation.</label>
+                        <input type="text" class="form-control" id="max_bar_in_use"/>
+                        <label>fitness: Fitness expression, must return a value.</label>
+                        <label>  You can reference the documentation "report and macro reference".</label>
+                        <input type="text" class="form-control" id="fitness"/>
+                        <label>bad: Bad condition, must return True or False</label>
+                        <label>  You can reference the documentation "report and macro reference".</label>
+                        <input type="text" class="form-control" id="bad"/>
+                      </div>
                     </div>
                   </div>
                   <!-- end panel -->
@@ -85,7 +110,7 @@
 
 {% block js %}
     <script>
-        let cg_write_api = "{% url 'cg_write' %}"
+        let get_simulation_settings_api = "{% url 'get_simulation_settings' %}"
     </script>
 	<script src="{% static 'assets/plugins/flot/jquery.flot.min.js' %} "></script>
   <script src="{% static 'js/manage_settings.js' %}"></script>
