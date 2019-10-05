@@ -10,16 +10,6 @@ class Instrument_def_file(models.Model):
   name = models.CharField(max_length=30)
   path = models.CharField(max_length=200)
 
-# Titan simulation settings
-class Simulation_setting_file(models.Model):
-  name = models.CharField(max_length=30)
-  path = models.CharField(max_length=200)
-
-# Signal settings, defines the argument range of the signals
-class Signal_def_file(models.Model):
-  name = models.CharField(max_length=30)
-  path = models.CharField(max_length=200)
-
 class Seq_def(models.Model):
   name = models.CharField(max_length=30)
   description = models.CharField(max_length=60)
@@ -50,8 +40,8 @@ class Instrument(models.Model):
 class Population(models.Model):
   name = models.CharField(max_length=30)
   instrument = models.ForeignKey(Instrument, on_delete=models.CASCADE)
-  simulation_setting_file = models.ForeignKey(Simulation_setting_file, on_delete=models.CASCADE)
-  signal_def_file = models.ForeignKey(Signal_def_file, on_delete=models.CASCADE)
+  simulation_setting_file = models.CharField(max_length=30)
+  signal_def_file = models.CharField(max_length=30)
   seq_def = models.ForeignKey(Seq_def, on_delete=models.CASCADE)
   start_date = models.CharField(max_length=30)
   end_date = models.CharField(max_length=30)

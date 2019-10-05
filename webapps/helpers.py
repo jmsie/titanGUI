@@ -19,7 +19,7 @@ class Signal_defs():
     data = ""
     file = self.path + file_name + self.posfix
     with open(file) as fp:
-      data = yaml.load(fp)
+      data = yaml.load(fp, Loader=yaml.FullLoader)
     return json.dumps(data, indent=2)
 
   def save_signal_defs(self, request):

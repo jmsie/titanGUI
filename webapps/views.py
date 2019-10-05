@@ -58,10 +58,13 @@ def console_send_command(request):
   return JsonResponse(context)
 
 def new_population(request):
+  signal_def = Signal_defs()
+  simulation_settings = Simulation_settings()
+
   instruments = Instrument.objects.all()
-  simulation_setting_files = Simulation_setting_file.objects.all()
+  simulation_setting_files = simulation_settings.get_setting_files()
   seq_defs = Seq_def.objects.all()
-  signal_def_files = Signal_def_file.objects.all()
+  signal_def_files = signal_def.get_signal_def_files()
   resolutions = Resolution.objects.all()
 
   context = {
@@ -196,8 +199,8 @@ def create_population_and_add_resolutions(request):
   population_obj.name = population_name
   population_obj.instrument = Instrument.objects.get(name=instrument)
   population_obj.seq_def = Seq_def.objects.get(name=seq_def)
-  population_obj.signal_def_file = Signal_def_file.objects.get(name=signal_def_file)
-  population_obj.simulation_setting_file = Simulation_setting_file.objects.get(name=simulation_setting_file)
+  population_obj.signal_def_file = ""
+  population_obj.simulation_setting_file = ""
   population_obj.start_date = range.split('-')[0]
   population_obj.end_date = range.split('-')[1]
   population_obj.resolutions = resolutions[:-1]

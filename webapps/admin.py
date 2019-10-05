@@ -3,8 +3,6 @@ from webapps.models import *
 
 admin.site.register(History_data_file)
 admin.site.register(Instrument_def_file)
-admin.site.register(Simulation_setting_file)
-admin.site.register(Signal_def_file)
 admin.site.register(Seq_def)
 admin.site.register(Time_scale)
 admin.site.register(Date_format)

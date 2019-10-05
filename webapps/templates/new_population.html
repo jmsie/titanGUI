@@ -242,7 +242,7 @@
 											<div class="col-md-6">
                                                 <select class="form-control" id="simulation-setting-file">
                                                     {% for simulation_setting_file in simulation_setting_files %}
-                                                      <option>{{ simulation_setting_file.name }}</option>
+                                                      <option>{{ simulation_setting_file }}</option>
                                                     {% endfor %}
                                                 </select>
 											</div>
@@ -266,7 +266,7 @@
 											<div class="col-md-6">
                                                 <select class="form-control" id="signal-def-file">
                                                     {% for signal_def_file in signal_def_files %}
-                                                        <option>{{ signal_def_file.name }}</option>
+                                                        <option>{{ signal_def_file}}</option>
                                                     {% endfor %}
                                                 </select>
 											</div>
