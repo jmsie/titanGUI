@@ -71,28 +71,40 @@ class Simulation_settings():
     fp.close()
 
 
+def build_out_sample_time_range(request, end_date):
+  from datetime import date
+  try:
+    start_year = int(request.POST.get('end_year'))
+    start_month = int(request.POST.get('end_month'))
+    start_day = int(request.POST.get('end_day'))
 
-def build_time_range(request):
-  start_year = request.POST.get('start_year')
-  start_month = request.POST.get('start_month')
-  start_day = request.POST.get('start_day')
+    start_date = date(start_year, start_month, start_day)
+    return build_time_range(start_date, end_date)
+  except:
+    return None
 
-  end_year = request.POST.get('end_year')
-  end_month = request.POST.get('end_month')
-  end_day = request.POST.get('end_day')
+def build_in_sample_time_range(request):
+  from datetime import date
+  start_year = int(request.POST.get('start_year'))
+  start_month = int(request.POST.get('start_month'))
+  start_day = int(request.POST.get('start_day'))
 
+  end_year = int(request.POST.get('end_year'))
+  end_month = int(request.POST.get('end_month'))
+  end_day = int(request.POST.get('end_day'))
+
+  start_date = date(start_year, start_month, start_day)
+  end_date = date(end_year, end_month, end_day)
+  return build_time_range(start_date, end_date)
+
+def build_time_range(start_date, end_date):
   # Format and validate numbers
-  start_year = format_number(start_year)
-  start_month = format_number(start_month)
-  start_day = format_number(start_day)
-  end_year = format_number(end_year)
-  end_month = format_number(end_month)
-  end_day = format_number(end_day)
-
-  if start_year is None or start_month is None or start_day is None:
-    return None
-  if end_year is None or end_month is None or end_day is None:
-    return None
+  start_year = format_number(start_date.year)
+  start_month = format_number(start_date.month)
+  start_day = format_number(start_date.day)
+  end_year = format_number(end_date.year)
+  end_month = format_number(end_date.month)
+  end_day = format_number(end_date.day)
 
   start_time = get_time_stamp(start_year + '-' + start_month + '-' + end_day)
   end_time = get_time_stamp(end_year + '-' + end_month + '-' + end_day)
@@ -102,14 +114,11 @@ def build_time_range(request):
   return start_year+"_"+start_month+start_day+"-"+end_year+"_"+end_month+end_day
 
 
-def format_number(str):
-  if not is_int(str):
-    return None
-
-  if int(str) < 10:
-    return '0' + str
+def format_number(num):
+  if num < 10:
+    return '0' + str(num)
   else:
-    return str
+    return str(num)
 
 
 def is_int(str):

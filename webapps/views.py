@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from webapps.models import *
-from webapps.helpers import *
-import json
+from webapps.helpers.helpers import *
+
 
 def get_signal_defs(request):
   signal_def = Signal_defs()
@@ -147,11 +147,13 @@ def simulation_result(request, current_population):
 
 ### API ###
 def create_population_and_add_resolutions(request):
+  from webapps.helpers.titan_command_builder import Titan_command_builder
+  titan_command_builder = Titan_command_builder()
 
   simulation_setting_file = request.POST.get('simulation_setting_file')
   signal_def_file = request.POST.get('signal_def_file')
   seq_def = request.POST.get('seq_def')
-  range = build_time_range(request)
+  in_sample_range = build_in_sample_time_range(request)
   instrument = request.POST.get('instrument')
   population_name = request.POST.get('population_name')
   resolutions = request.POST.get('resolutions')
@@ -163,7 +165,7 @@ def create_population_and_add_resolutions(request):
     errors.append('No signal def found')
   if seq_def is None:
     errors.append('No sew def found')
-  if range is None:
+  if in_sample_range is None:
     errors.append('Time range setting error')
   if instrument is None:
     errors.append('No instrument found')
@@ -175,47 +177,60 @@ def create_population_and_add_resolutions(request):
   if len(errors) != 0:
     return JsonResponse({"errors": errors})
 
+  instrument = Instrument.objects.get(name=instrument)
 
-
-  # Build query
-  create_population = 'create_population -settings #simulation_setting_file -signal_def #signal_def_file -range #range -instrument #instrument -seqdef #seq_def #population_name -strategy #strategy'
-  data = {
+  # Build in sample population
+  context = {
     "#simulation_setting_file": simulation_setting_file,
     "#signal_def_file": signal_def_file,
-    "#range": range,
-    "#instrument": instrument,
+    "#range": in_sample_range,
+    "#instrument": instrument.name,
     "#seq_def": seq_def,
     "#strategy": 'mc',
     "#population_name": population_name,
   }
+  print(context)
+  create_in_sample_population = titan_command_builder.create_population(context)
 
-  for key, value in data.items():
-    create_population = create_population.replace(key, value)
+  # Build outsample population
 
-
+  out_sample_range = build_out_sample_time_range(request, instrument.end_date)
+  context = {
+    "#simulation_setting_file": simulation_setting_file,
+    "#signal_def_file": signal_def_file,
+    "#range": out_sample_range,
+    "#instrument": instrument.name,
+    "#seq_def": seq_def,
+    "#strategy": 'mc',
+    "#population_name": population_name,
+  }
+  print(context)
+  create_out_sample_population = titan_command_builder.create_population(context)
 
   # Save query to db
   population_obj = Population()
   population_obj.name = population_name
-  population_obj.instrument = Instrument.objects.get(name=instrument)
+  population_obj.instrument = instrument
   population_obj.seq_def = Seq_def.objects.get(name=seq_def)
   population_obj.signal_def_file = ""
   population_obj.simulation_setting_file = ""
-  population_obj.start_date = range.split('-')[0]
-  population_obj.end_date = range.split('-')[1]
+  population_obj.start_date = in_sample_range.split('-')[0]
+  population_obj.end_date = in_sample_range.split('-')[1]
   population_obj.resolutions = resolutions[:-1]
-  population_obj.query = create_population
+  population_obj.query = create_in_sample_population
   population_obj.save()
 
   add_resolution = "add_resolution " + population_name + " " + resolutions.replace(',',' ')
 
   context = {
-    "create_population": create_population,
-    "add_resolution": add_resolution,
+    "create_in_sample_population": create_in_sample_population,
+    "add_in_sample_resolution": add_resolution,
+    "create_out_sample_population": create_out_sample_population,
+    "add_out_sample_resolution": add_resolution,
   }
 
-  send_command(create_population)
-  send_command(add_resolution)
+  #for command in context.values():
+  #  send_command(command)
 
   return JsonResponse(context)
 
