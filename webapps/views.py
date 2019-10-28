@@ -189,7 +189,6 @@ def create_population_and_add_resolutions(request):
     "#strategy": 'mc',
     "#population_name": population_name,
   }
-  print(context)
   create_in_sample_population = titan_command_builder.create_population(context)
 
   # Build outsample population
@@ -202,9 +201,8 @@ def create_population_and_add_resolutions(request):
     "#instrument": instrument.name,
     "#seq_def": seq_def,
     "#strategy": 'mc',
-    "#population_name": population_name,
+    "#population_name": population_name + "_out_sample",
   }
-  print(context)
   create_out_sample_population = titan_command_builder.create_population(context)
 
   # Save query to db
@@ -220,13 +218,14 @@ def create_population_and_add_resolutions(request):
   population_obj.query = create_in_sample_population
   population_obj.save()
 
-  add_resolution = "add_resolution " + population_name + " " + resolutions.replace(',',' ')
+  add_in_sample_resolution = "add_resolution " + population_name + " " + resolutions.replace(',',' ')
+  add_out_sample_resolution = "add_resolution " + population_name + "_out_sample " + resolutions.replace(',',' ')
 
   context = {
     "create_in_sample_population": create_in_sample_population,
-    "add_in_sample_resolution": add_resolution,
+    "add_in_sample_resolution": add_in_sample_resolution,
     "create_out_sample_population": create_out_sample_population,
-    "add_out_sample_resolution": add_resolution,
+    "add_out_sample_resolution": add_out_sample_resolution,
   }
 
   for command in context.values():
