@@ -229,8 +229,8 @@ def create_population_and_add_resolutions(request):
     "add_out_sample_resolution": add_resolution,
   }
 
-  #for command in context.values():
-  #  send_command(command)
+  for command in context.values():
+    send_command(command)
 
   return JsonResponse(context)
 
