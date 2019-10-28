@@ -99,18 +99,24 @@
 {% block js %}
 
     <script>
-        var current_population = "{{ current_population }}"
+        let current_population = "{{ current_population }}"
         if (current_population != ""){
             mp_status(current_population)
         }
 
 
+        // Stop the current simulation and start a new one
         function start_sim(population) {
+            if (current_population != population){
+              stop_sim(current_population)
+            }
+            current_population = population
             command_list = [
                 "set_current_population " + population,
                 "mp_start",
+                "_gui_mp_status",
             ]
-            send_command(command_list)
+            send_command(command_list, show_mp_status)
         }
 
         function pause_sim(population){
@@ -119,19 +125,23 @@
         }
 
         function stop_sim(population){
-            command_list = ["mp_stop"]
-            send_command(command_list)
+            command_list = [
+                "mp_stop",
+                "_gui_mp_status",
+            ]
+            send_command(command_list, show_mp_status)
         }
 
         function mp_status(population){
             $("#status-title").text(population)
-            $("#status-message").html("")
-            $("#status-table").html("")
-
             send_command(["_gui_mp_status"], show_mp_status)
         }
 
         function show_mp_status(data){
+            console.log("Update mp_status...")
+            $("#status-title").text(current_population)
+            $("#status-message").html("")
+            $("#status-table").html("")
             function get_status_row(name, sim, bad, status){
                 row = "<tr>"
                 row += "<td>" + name + "</td>"
