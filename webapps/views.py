@@ -82,10 +82,18 @@ def new_population(request):
 
 def manage_populations(request):
   populations = get_command_json(send_command("_gui_container_list_population"))
+  current_population = send_command("get_current_population")[-1]
+
+  # current population net set
+  if "set_current_population" in current_population:
+    current_population = ""
+
+
   context = {}
   if "list" in populations:
     context = {
-      "populations": populations['list']
+      "populations": populations['list'],
+      "current_population": current_population
     }
   else:
     context = {
