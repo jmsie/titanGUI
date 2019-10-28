@@ -14,40 +14,41 @@ function get_simulation_result (seq_name) {
     $("#interactive-chart").hide()
 	$("#simulation_result_download").hide()
 	$("#simulation_result_spin").show()
-    send_command(["parse_sequence -sequence " + seq_name])
-	send_command(['run_simulation'], handle_simulation_finish)
-}
-
-function handle_simulation_result(data){
-	console.log(data);
-	obj = JSON.parse(data.message)
-	trades = obj.list
-	profits = []
-	base_index = []
-	time_line = []
-	total_profit = 0
-	max_profit = -Number.MAX_VALUE
-	min_profit = Number.MAX_VALUE
-	for (var i = 0; i < trades.length; i++){
-		total_profit += trades[i][0][5]
-		profits.push([i, total_profit])
-		base_index.push([i, total_profit])
-		time_line.push([i, ""])
-		max_profit = Math.max(max_profit,  total_profit)
-		min_profit = Math.min(min_profit, total_profit)
+	$.ajax({
+	url: get_simulation_result_api,
+	type: 'POST',
+	data: {
+		"seq_name": seq_name,
+	},
+	dataType: 'json',
+	success: function(data){
+        handle_simulation_finish(data)
+	},
+	error: function(){
+		alert('ajax error');
 	}
-	handleInteractiveChart(profits, base_index, time_line, max_profit, min_profit)
-
+})
 }
 
 function handle_simulation_finish(data) {
-	console.log(data)
     $("#simulation_result_spin").hide()
     seq_name = $("#seq_name").text()
 	$("#interactive-chart").show()
 	$("#simulation_result_download").show()
-	send_command(["_gui_show_list_of_trades -sequence " + seq_name], handle_simulation_result)
+    handle_simulation_result(data)
 }
+
+function handle_simulation_result(data){
+	console.log(data);
+	handleInteractiveChart(
+		data.in_sample_profits,
+		data.in_sample_profits,
+		data.time_line,
+		data.max_profit,
+		data.min_profit,
+	)
+}
+
 
 function prepare_code(){
 	$.ajax({
@@ -80,7 +81,7 @@ function download_code(data) {
     }))
 }
 
-function handleInteractiveChart(profits, base_index, time_line, max_profit) {
+function handleInteractiveChart(profits, base_index, time_line, max_profit, min_profit) {
 	"use strict";
 	function showTooltip(x, y, contents) {
 		$('<div id="tooltip" class="flot-tooltip">' + contents + '</div>').css( {
