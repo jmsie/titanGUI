@@ -136,11 +136,14 @@ def get_time_stamp(str):
 # @input: string
 # @output: string
 def send_command(command):
-  import sys
-  sys.path.append(settings.TITAN)
-  import logging
-  from titan.ui_titan import TitanSocketUi
-  from cmdshell.log import SocketHandler
+  try:
+    from titan.ui_titan import TitanSocketUi
+    from cmdshell.log import SocketHandler
+  except:
+    import sys
+    sys.path.append(settings.TITAN)
+    from titan.ui_titan import TitanSocketUi
+    from cmdshell.log import SocketHandler
   import socket
   # Communicate with Titan server
   socket_handler = SocketHandler()
