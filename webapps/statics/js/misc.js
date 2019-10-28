@@ -13,9 +13,9 @@ function send_command(command_list, call_back){
             dataType: 'json',
             success: function(data){
                 console.log(command + "...success")
-                if (call_back != undefined)
+                if (call_back != undefined && command_list.length == 0)
                     call_back(data)
-                send_command(command_list)
+                send_command(command_list, call_back)
             },
             error: function(){
                 alert('ajax error');
