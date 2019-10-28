@@ -21,6 +21,6 @@ urlpatterns = [
   path('api/save_simulation_settings', views.save_simulation_settings, name="save_simulation_settings"),
   path('api/get_signal_defs', views.get_signal_defs, name="get_signal_defs"),
   path('api/save_signal_defs', views.save_signal_defs, name="save_signal_defs"),
-
+  path('api/get_simulation_result', views.get_simulation_result, name="get_simulation_result"),
 ]
 

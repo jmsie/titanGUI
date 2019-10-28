@@ -4,3 +4,9 @@ class Titan_command_builder():
     for key, value in context.items():
       command = command.replace(key, value)
     return command
+
+  def get_current_population(self):
+    return "get_current_population"
+
+  def _gui_container_list_population(self):
+    return "_gui_container_list_population"

@@ -3,6 +3,35 @@ from django.http import JsonResponse
 from webapps.models import *
 from webapps.helpers.helpers import *
 
+def get_simulation_result(request):
+  # Check if current population is set
+  from webapps.helpers.titan_command_builder import Titan_command_builder
+  titan_command_builder = Titan_command_builder()
+  current_population = send_command(titan_command_builder.get_current_population())[-1]
+  if "set_current_population" in current_population:
+    context = {
+      "status": "ERROR",
+      "message": "No current population",
+    }
+  else:
+    from webapps.helpers.trade_list import Trade_list
+    send_command("parse_sequence -sequence " + request.POST.get("seq_name"))
+    send_command("run_simulation")
+    in_sample = Trade_list(
+      get_command_json(
+        send_command("_gui_show_list_of_trades -sequence " + request.POST.get("seq_name"))
+      )['list']
+    )
+    context = {
+      "status": "OK",
+      "in_sample_profits": in_sample.profits,
+      "time_line": in_sample.time_line,
+      "min": in_sample.min_profit,
+      "max": in_sample.max_profit,
+    }
+
+
+  return JsonResponse(context)
 
 def get_signal_defs(request):
   signal_def = Signal_defs()
@@ -81,8 +110,10 @@ def new_population(request):
   return render(request, 'new_population.html', context)
 
 def manage_populations(request):
-  populations = get_command_json(send_command("_gui_container_list_population"))
-  current_population = send_command("get_current_population")[-1]
+  from webapps.helpers.titan_command_builder import Titan_command_builder
+  titan_command_builder = Titan_command_builder()
+  populations = get_command_json(send_command(titan_command_builder._gui_container_list_population()))
+  current_population = send_command(titan_command_builder.get_current_population())[-1]
 
   # current population net set
   if "set_current_population" in current_population:
@@ -122,11 +153,14 @@ def simulation_result(request, current_population):
 
   sequences_L = []
   sequences_S = []
+
   for index, sequence_name in enumerate(sequences['list']):
-    send_command("prepare_strategy_report -sequence " + sequence_name)
-    sequences_report = get_command_json(send_command("_gui_show_sequence  -sequence " + sequence_name))
-    mdd = floar2String(sequences_report['dict']['rpt']['mdd'])
-    profit = floar2String(sequences_report['dict']['rpt']['profit'])
+    #send_command("prepare_strategy_report -sequence " + sequence_name)
+    #sequences_report = get_command_json(send_command("_gui_show_sequence  -sequence " + sequence_name))
+    #mdd = floar2String(sequences_report['dict']['rpt']['mdd'])
+    #profit = floar2String(sequences_report['dict']['rpt']['profit'])
+    mdd = 0
+    profit = 0
 
     seq = {
       "index": index,
