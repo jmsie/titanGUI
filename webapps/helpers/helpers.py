@@ -135,7 +135,7 @@ def get_time_stamp(str):
 # between GUI and Titan server.
 # @input: string
 # @output: string
-def send_command(command):
+def send_command(command, out_sample=False):
   try:
     from titan.ui_titan import TitanSocketUi
     from cmdshell.log import SocketHandler
@@ -151,7 +151,10 @@ def send_command(command):
   with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
     socket_handler.set_socket(sock)
     try:
-      sock.connect((settings.TITAN_HOST, settings.TITAN_PORT))
+      if out_sample:
+        sock.connect((settings.TITAN_HOST_OUT_SAMPLE, settings.TITAN_PORT_OUT_SAMPLE))
+      else:
+        sock.connect((settings.TITAN_HOST, settings.TITAN_PORT))
       TitanSocketUi.send_str(sock, command)
       for data in socket_handler.receive():
         recv.append(data.getMessage())
