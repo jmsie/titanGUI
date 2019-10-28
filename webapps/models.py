@@ -23,19 +23,6 @@ class Instrument(models.Model):
   created_at = models.DateTimeField(auto_now_add=True)
 
 
-
-  def dump(self):
-    print(self.name)
-    print(self.history_data_file)
-    print(self.instrument_def_file)
-    print(self.time_scale)
-    print(self.date_format)
-    print(self.min_movement)
-    print(self.price_scale)
-    print(self.big_point_value)
-    print(self.query)
-
-
 class Population(models.Model):
   name = models.CharField(max_length=30)
   instrument = models.ForeignKey(Instrument, on_delete=models.CASCADE)
