@@ -132,5 +132,5 @@ MEDIA_URL = '/img/'
 TITAN = '/Titan'
 TITAN_HOST = 'titan_server'
 TITAN_PORT = 61200
-TITAN_HOST_OUT_SAMPLE = 'titan_server_out_sample'
-TITAN_PORT_OUT_SAMPLE = 61201
+TITAN_HOST_OUT_SAMPLE = 'titan_out_sample'
+TITAN_PORT_OUT_SAMPLE = 61200

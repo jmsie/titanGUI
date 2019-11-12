@@ -42,7 +42,7 @@ function handle_simulation_result(data){
 	console.log(data);
 	handleInteractiveChart(
 		data.in_sample_profits,
-		data.in_sample_profits,
+		data.out_sample_profits,
 		data.time_line,
 		data.max_profit,
 		data.min_profit,
@@ -81,7 +81,7 @@ function download_code(data) {
     }))
 }
 
-function handleInteractiveChart(profits, base_index, time_line, max_profit, min_profit) {
+function handleInteractiveChart(profits, out_sample, time_line, max_profit, min_profit) {
 	"use strict";
 	function showTooltip(x, y, contents) {
 		$('<div id="tooltip" class="flot-tooltip">' + contents + '</div>').css( {
@@ -98,9 +98,9 @@ function handleInteractiveChart(profits, base_index, time_line, max_profit, min_
 				points: { show: true, radius: 1, fillColor: COLOR_WHITE },
 				shadowSize: 0
 			}, {
-				data: base_index,
-				label: 'Base index',
-				color: COLOR_GREEN,
+				data: out_sample,
+				label: 'Out sample',
+				color: COLOR_RED,
 				lines: { show: true, fill:false, lineWidth: 1 },
 				points: { show: true, radius: 1, fillColor: COLOR_WHITE },
 				shadowSize: 0

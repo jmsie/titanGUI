@@ -145,22 +145,25 @@ def send_command(command, out_sample=False):
     from titan.ui_titan import TitanSocketUi
     from cmdshell.log import SocketHandler
   import socket
+  if out_sample:
+    HOST = settings.TITAN_HOST_OUT_SAMPLE
+    PORT = settings.TITAN_PORT_OUT_SAMPLE
+  else:
+    HOST = settings.TITAN_HOST
+    PORT = settings.TITAN_PORT
   # Communicate with Titan server
   socket_handler = SocketHandler()
   recv = []
   with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
     socket_handler.set_socket(sock)
     try:
-      if out_sample:
-        sock.connect((settings.TITAN_HOST_OUT_SAMPLE, settings.TITAN_PORT_OUT_SAMPLE))
-      else:
-        sock.connect((settings.TITAN_HOST, settings.TITAN_PORT))
+      sock.connect((HOST, PORT))
       TitanSocketUi.send_str(sock, command)
       for data in socket_handler.receive():
         recv.append(data.getMessage())
     except ConnectionRefusedError:
       msg = "Cannot connect to the server at {}:{}".format(
-        settings.TITAN_HOST, settings.TITAN_PORT)
+        HOST, PORT)
       recv.append(json.dumps({"msg":msg}))
 
   return recv

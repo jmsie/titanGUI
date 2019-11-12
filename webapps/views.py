@@ -15,19 +15,38 @@ def get_simulation_result(request):
     }
   else:
     from webapps.helpers.trade_list import Trade_list
-    send_command("parse_sequence -sequence " + request.POST.get("seq_name"))
+    seq_name = request.POST.get('seq_name')
+    seq_key = send_command("show_sequence_key -sequence " + seq_name)[-1]
+    send_command("parse_sequence -sequence " + seq_name)
     send_command("run_simulation")
     in_sample = Trade_list(
       get_command_json(
-        send_command("_gui_show_list_of_trades -sequence " + request.POST.get("seq_name"))
+        send_command("_gui_show_list_of_trades -sequence " + seq_name)
       )['list']
     )
+
+    seq_name = seq_name + "_out_sample"
+    send_command("get_sequence_by_key -sequence " + seq_name + " " + seq_key, True)
+    send_command("parse_sequence -sequence " + seq_name, True)
+    send_command("run_simulation", True)
+    out_sample = Trade_list(
+      get_command_json(
+        send_command("_gui_show_list_of_trades -sequence " + seq_name, True)
+      )['list'],
+      in_sample.profits[-1][0],
+      in_sample.profits[-1][1]
+    )
+
+
+
     context = {
       "status": "OK",
       "in_sample_profits": in_sample.profits,
-      "time_line": in_sample.time_line,
-      "min": in_sample.min_profit,
-      "max": in_sample.max_profit,
+      "out_sample_profits": out_sample.profits,
+      "time_line": in_sample.time_line + out_sample.time_line,
+      "min": min(in_sample.min_profit, out_sample.min_profit),
+      "max": max(in_sample.max_profit, out_sample.max_profit),
+      'seq_key': seq_key,
     }
 
 
@@ -144,6 +163,14 @@ def simulation_result(request, current_population):
       return "N/A"
     return "{:.1f}".format(num)
 
+  # Setup the out sample server
+  # TODO change the out sample send command to no block
+  send_command("mp_stop", True)
+  send_command("set_current_population " + current_population + "_out_sample", True)
+  send_command("migrate_from_population -population " + current_population + " -method base:mix+L -limit 100", True)
+  #send_command("mp_start -disable_evolution", True)
+
+
   sequences = get_command_json(send_command("_gui_container_list_sequence"))
   if len(sequences['list']) == 0:
     send_command("set_current_population " + current_population)
@@ -155,10 +182,10 @@ def simulation_result(request, current_population):
   sequences_S = []
 
   for index, sequence_name in enumerate(sequences['list']):
-    #send_command("prepare_strategy_report -sequence " + sequence_name)
-    #sequences_report = get_command_json(send_command("_gui_show_sequence  -sequence " + sequence_name))
-    #mdd = floar2String(sequences_report['dict']['rpt']['mdd'])
-    #profit = floar2String(sequences_report['dict']['rpt']['profit'])
+    send_command("prepare_strategy_report -sequence " + sequence_name)
+    sequences_report = get_command_json(send_command("_gui_show_sequence  -sequence " + sequence_name))
+    mdd = floar2String(sequences_report['dict']['rpt']['mdd'])
+    profit = floar2String(sequences_report['dict']['rpt']['profit'])
     mdd = 0
     profit = 0
 
